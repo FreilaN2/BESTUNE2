@@ -155,7 +155,7 @@ foreach ($slides as $slide) {
 		<div class="row">
 			<div class="col-lg-6 col-md-12">
 				<div class="abt-bg">
-					<a href="assets/img/BESTUNE_T77.mp4" class="video-play-btn popup-youtube"><i class="fas fa-play"></i></a>
+					<a href="assets/img/BESTUNE_T77.mp4" class="video-play-btn popup-youtube d-inline-flex align-items-center justify-content-center rounded-circle"><i class="fas fa-play ml-1"></i></a>
 				</div>
 			</div>
 			<div class="col-lg-6 col-md-12">
