@@ -1,0 +1,54 @@
+/* Estilos generales */
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #eee;
+    font-weight: 600;
+}
+
+.table th {
+    font-weight: 600;
+    background-color: #f8f9fa;
+}
+
+/* Navbar */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Dashboard cards */
+.card-stat {
+    transition: transform 0.3s;
+}
+
+.card-stat:hover {
+    transform: translateY(-5px);
+}
+
+/* Formularios */
+.form-control, .form-select {
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Botones */
+.btn {
+    border-radius: 5px;
+    padding: 8px 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card-stat {
+        margin-bottom: 15px;
+    }
+}
