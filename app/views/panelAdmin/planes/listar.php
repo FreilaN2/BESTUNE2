@@ -37,7 +37,7 @@ $planes = $db->query($sql)->fetchAll();
                         <td><?= htmlspecialchars($plan['nombre_plan']) ?></td>
                         <td>
                             <?php if (!empty($plan['imagen_principal'])): ?>
-                                <img src="../<?= htmlspecialchars($plan['imagen_principal']) ?>" alt="Imagen del plan" style="max-height: 50px;" class="img-thumbnail">
+                                <img src="/bestune2/public/<?= htmlspecialchars($plan['imagen_principal']) ?>" alt="Imagen del plan" style="max-height: 50px;" class="img-thumbnail">
                             <?php else: ?>
                                 <span class="text-muted">Sin imagen</span>
                             <?php endif; ?>

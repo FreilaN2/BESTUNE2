@@ -46,7 +46,7 @@ $eventos = $db->query($sql)->fetchAll();
                         </td>
                         <td>
                             <?php if (!empty($evento['imagen'])): ?>
-                                <img src="../<?= htmlspecialchars($evento['imagen']) ?>" alt="Imagen" style="max-height: 50px;" class="img-thumbnail">
+                              <img src="/bestune2/public/<?= htmlspecialchars($evento['imagen']) ?>"alt="Imagen" style="max-height: 50px;" class="img-thumbnail">
                             <?php else: ?>
                                 <span class="text-muted">Sin imagen</span>
                             <?php endif; ?>

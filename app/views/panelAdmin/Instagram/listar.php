@@ -44,7 +44,7 @@ $posts = $db->query($sql)->fetchAll();
                                     <?php if (preg_match('/\.(mp4|webm)$/i', $post['url_media'])): ?>
                                         <video src="../<?= htmlspecialchars($post['url_media']) ?>" style="max-height: 50px;" class="img-thumbnail" muted autoplay loop></video>
                                     <?php else: ?>
-                                        <img src="../<?= htmlspecialchars($post['url_media']) ?>" alt="Media del post" style="max-height: 50px;" class="img-thumbnail">
+                                       <img src="/BESTUNE2/public/<?= htmlspecialchars($post['url_media']) ?>"  alt="Media del post" style="max-height: 50px;" class="img-thumbnail">
                                     <?php endif; ?>
                                 <?php else: ?>
                                     <span class="text-muted">Sin media</span>

@@ -178,7 +178,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <small class="text-muted">Formatos: JPG, PNG, GIF, WEBP. Máximo 5MB.</small>
                         <?php if (!empty($promocion['imagen_url'])): ?>
                             <div class="mt-2">
-                                <img src="../<?= htmlspecialchars($promocion['imagen_url']) ?>" alt="Imagen actual" style="max-height: 100px;" class="img-thumbnail">
+<img src="/bestune2/public/<?= htmlspecialchars($promocion['imagen_url']) ?>" alt="Imagen actual" style="max-height: 100px;" class="img-thumbnail">
+
                                 <p class="text-muted mt-1">Imagen actual</p>
                             </div>
                         <?php endif; ?>

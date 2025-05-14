@@ -88,7 +88,8 @@ $promociones = $stmt->fetchAll();
                             </td>
                             <td>
                                 <?php if (!empty($promo['imagen_url'])): ?>
-                                    <img src="../<?= htmlspecialchars($promo['imagen_url']) ?>" alt="Imagen" class="img-thumbnail" style="max-height: 60px;">
+                                    <img src="/bestune2/public/<?= htmlspecialchars($promo['imagen_url']) ?>" alt="Imagen" class="img-thumbnail" style="max-height: 60px;">
+
                                 <?php else: ?>
                                     <span class="text-muted">Sin imagen</span>
                                 <?php endif; ?>

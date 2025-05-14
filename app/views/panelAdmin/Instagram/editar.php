@@ -129,7 +129,7 @@ $visible_checked = isset($_POST['visible']) || $post['visible'] ? 'checked' : ''
                         <?php if (preg_match('/\.(mp4|webm)$/i', $post['url_media'])): ?>
                             <video src="../<?= htmlspecialchars($post['url_media']) ?>" controls style="max-height: 200px;" class="img-thumbnail"></video>
                         <?php else: ?>
-                            <img src="../<?= htmlspecialchars($post['url_media']) ?>" alt="Media actual" style="max-height: 200px;" class="img-thumbnail">
+                          <img src="/BESTUNE2/public/<?= htmlspecialchars($post['url_media']) ?>"  alt="Media actual" style="max-height: 200px;" class="img-thumbnail">
                         <?php endif; ?>
                         <p class="text-muted mt-1">Archivo actual</p>
                     </div>

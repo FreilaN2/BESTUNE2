@@ -15,5 +15,5 @@ try {
 }
 
 // Configuración general
-define('SITE_NAME', 'Panel de control');
+define('SITE_NAME', 'Bestune Admin');
 ?>
