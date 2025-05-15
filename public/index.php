@@ -49,6 +49,10 @@ switch ($view) {
 		include '../app/views/vehiculos/toyota-levin.php';	
 		break;
 
+	case 'toyota-levin-sports':
+		include '../app/views/vehiculos/toyota-levin-sports.php';	
+		break;
+
 	case 'toyota-corollacross':
 		include '../app/views/vehiculos/toyota-corollacross.php';	
 		break;

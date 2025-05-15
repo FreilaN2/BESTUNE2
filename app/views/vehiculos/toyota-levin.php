@@ -133,6 +133,10 @@
         <a href="ficha_tecnica.php?modelo=levin" target="_blank" class="cart-btn"><i class="fas fa-info"></i> FICHA TÉCNICA</a>
         <a href="ficha_tecnica.php?modelo=manual-levin" target="_blank" class="cart-btn"><i class="fas fa-book-open"></i> MANUAL DEL USUARIO</a>
         <a href="ficha_tecnica.php?modelo=parte-levin" target="_blank" class="cart-btn mt-2"><i class="fas fa-wrench"></i> PARTES Y PIEZAS</a>
+        <a href="index.php?view=toyota-levin-sports" class="cart-btn mt-2"><i class="fas fa-car-side"></i> MODELO SPORTS
+</a>
+
+        
       </div>
       <div class="col-lg-6">
         <div class="featured-text mb-2">
