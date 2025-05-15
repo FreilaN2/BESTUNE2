@@ -161,25 +161,25 @@ if (!function_exists('isActive')) {
 								<ul class="sub-menu">
 									<li><a class="dropdown-item" href="#">Región Central <i class="fas fa-angle-right"></i></a>
 										<ul class="submenu dropdown-menu text-center">
-											<li><a class="dropdown-item <?php echo isActive('contacto', '1') ? 'active' : ''; ?>" href="index.php?view=contacto&aliados=1">Chacao</a></li>
-											<li><a class="dropdown-item <?php echo isActive('contacto', '9') ? 'active' : ''; ?>" href="index.php?view=contacto&aliados=9">Las Mercedes</a></li>
-											<li><a class="dropdown-item <?php echo isActive('contacto', '3') ? 'active' : ''; ?>" href="index.php?view=contacto&aliados=3">Altamira</a></li>
-											<li><a class="dropdown-item <?php echo isActive('contacto', '4') ? 'active' : ''; ?>" href="index.php?view=contacto&aliados=4">Valencia</a></li>
+											<li><a class=" <?php echo isActive('contacto', '1') ? 'active' : ''; ?>" href="index.php?view=contacto&aliados=1">Chacao</a></li>
+											<li><a class=" <?php echo isActive('contacto', '9') ? 'active' : ''; ?>" href="index.php?view=contacto&aliados=9">Las Mercedes</a></li>
+											<li><a class=" <?php echo isActive('contacto', '3') ? 'active' : ''; ?>" href="index.php?view=contacto&aliados=3">Altamira</a></li>
+											<li><a class=" <?php echo isActive('contacto', '4') ? 'active' : ''; ?>" href="index.php?view=contacto&aliados=4">Valencia</a></li>
 										</ul>
 									</li>
 									<li><a class="dropdown-item" href="#">Región Oriental <i class="fas fa-angle-right"></i> </a>
 										<ul class="submenu dropdown-menu">
-											<li><a class="dropdown-item <?php echo isActive('contacto', '6') ? 'active' : ''; ?>" href="index.php?view=contacto&aliados=6">Lechería</a></li>
+											<li><a class=" <?php echo isActive('contacto', '6') ? 'active' : ''; ?>" href="index.php?view=contacto&aliados=6">Lechería</a></li>
 										</ul>
 									</li>
 									<li><a class="dropdown-item" href="#">Región Los Llanos <i class="fas fa-angle-right"></i></a>
 										<ul class="submenu dropdown-menu">
-											<li><a class="dropdown-item <?php echo isActive('contacto', '8') ? 'active' : ''; ?>" href="index.php?view=contacto&aliados=8">Barinas</a></li>
+											<li><a class=" <?php echo isActive('contacto', '8') ? 'active' : ''; ?>" href="index.php?view=contacto&aliados=8">Barinas</a></li>
 										</ul>
 									</li>
 									<li><a class="dropdown-item" href="#">Región Guárico <i class="fas fa-angle-right"></i></a>
 										<ul class="submenu dropdown-menu">
-											<li><a class="dropdown-item <?php echo isActive('contacto', '10') ? 'active' : ''; ?>" href="index.php?view=contacto&aliados=10">Valle de la Pascua</a></li>
+											<li><a class=" <?php echo isActive('contacto', '10') ? 'active' : ''; ?>" href="index.php?view=contacto&aliados=10">Valle de la Pascua</a></li>
 										</ul>
 									</li>
 								</ul>
@@ -192,11 +192,11 @@ if (!function_exists('isActive')) {
 								<ul class="sub-menu">
 									<li><a class="dropdown-item" href="#">Faw Bestune <i class="fas fa-angle-right"></i></a>
 										<ul class="submenu dropdown-menu text-center">
-											<li><a class="dropdown-item <?php echo isActive('bestune-t55') ? 'active' : ''; ?>" href="index.php?view=bestune-t55">T55</a></li>
-											<li><a class="dropdown-item <?php echo isActive('bestune-t77') ? 'active' : ''; ?>" href="index.php?view=bestune-t77">T77</a></li>
-											<li><a class="dropdown-item <?php echo isActive('bestune-t99') ? 'active' : ''; ?>" href="index.php?view=bestune-t99">T99</a></li>
-											<li><a class="dropdown-item <?php echo isActive('bestune-b70') ? 'active' : ''; ?>" href="index.php?view=bestune-b70">B70</a></li>
-											<li><a class="dropdown-item <?php echo isActive('bestune-r7') ? 'active' : ''; ?>" href="index.php?view=bestune-r7">R7</a></li>
+											<li><a class="<?php echo isActive('bestune-t55') ? 'active' : ''; ?>" href="index.php?view=bestune-t55">T55</a></li>
+											<li><a class="<?php echo isActive('bestune-t77') ? 'active' : ''; ?>" href="index.php?view=bestune-t77">T77</a></li>
+											<li><a class="<?php echo isActive('bestune-t99') ? 'active' : ''; ?>" href="index.php?view=bestune-t99">T99</a></li>
+											<li><a class="<?php echo isActive('bestune-b70') ? 'active' : ''; ?>" href="index.php?view=bestune-b70">B70</a></li>
+											<li><a class="<?php echo isActive('bestune-r7') ? 'active' : ''; ?>" href="index.php?view=bestune-r7">R7</a></li>
 										</ul>
 									</li>
 									<li><a class="dropdown-item" href="#">Faw Toyota <i class="fas fa-angle-right"></i></a>
