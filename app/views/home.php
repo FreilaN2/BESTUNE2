@@ -209,6 +209,7 @@ foreach ($slides as $slide) {
 	</div>
 </div>
 
+<!-- Llamado de instagram -->
 <?php
 try {
     $query = $pdo->query("SELECT url_post, url_media, descripcion FROM instagram_posts WHERE visible = 1 ORDER BY fecha_post DESC LIMIT 12");
@@ -248,71 +249,6 @@ try {
     </div>
 </div>
 
-<style>
-.row.flex-nowrap::-webkit-scrollbar {
-    display: none;
-}
-.row.flex-nowrap {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-}
-.ig-post-box {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background-color: #fff;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-.ig-thumbnail {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    background: #eee;
-}
-.ig-thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-}
-.ig-description {
-    max-height: 3.6em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-}
-.ig-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
-    background: rgba(0,0,0,0.5);
-    color: #fff;
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    font-size: 1.5rem;
-    border-radius: 50%;
-}
-.ig-prev { left: -10px; }
-.ig-next { right: -10px; }
-</style>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const slider = document.querySelector('.ig-slider');
-    const slideWidth = 320;
-    document.querySelector('.ig-next').addEventListener('click', () => {
-        slider.scrollBy({ left: slideWidth, behavior: 'smooth' });
-    });
-    document.querySelector('.ig-prev').addEventListener('click', () => {
-        slider.scrollBy({ left: -slideWidth, behavior: 'smooth' });
-    });
-});
-</script>
 <div class="testimonail-section mt-100 mb-100">
 	<div class="container">
 		<div class="row">
@@ -345,6 +281,17 @@ document.addEventListener('DOMContentLoaded', function () {
 </div>
 
 <script>
+	document.addEventListener('DOMContentLoaded', function () {
+    const slider = document.querySelector('.ig-slider');
+    const slideWidth = 320;
+    document.querySelector('.ig-next').addEventListener('click', () => {
+        slider.scrollBy({ left: slideWidth, behavior: 'smooth' });
+    });
+    document.querySelector('.ig-prev').addEventListener('click', () => {
+        slider.scrollBy({ left: -slideWidth, behavior: 'smooth' });
+    });
+});
+
 document.addEventListener('DOMContentLoaded', function () {
 	const slides = document.querySelector('.instagram-slides');
 	const slideItems = document.querySelectorAll('.instagram-slide');
