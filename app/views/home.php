@@ -209,6 +209,110 @@ foreach ($slides as $slide) {
 	</div>
 </div>
 
+<?php
+try {
+    $query = $pdo->query("SELECT url_post, url_media, descripcion FROM instagram_posts WHERE visible = 1 ORDER BY fecha_post DESC LIMIT 12");
+    $posts = $query->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    $posts = [];
+    echo "<p>Error cargando Instagram: " . htmlspecialchars($e->getMessage()) . "</p>";
+}
+?>
+
+<!-- SECCIÓN DE INSTAGRAM SIMULADA -->
+<div class="abt-section mb-100 mt-100">
+    <div class="container position-relative">
+        <h2 class="text-center mb-5"><i class="fab fa-instagram"></i> Instagram</h2>
+        <button class="ig-nav ig-prev">&#10094;</button>
+        <button class="ig-nav ig-next">&#10095;</button>
+        <div class="row gy-4 overflow-auto flex-nowrap ig-slider" style="scroll-snap-type: x mandatory;">
+            <?php foreach ($posts as $post): 
+                $url = htmlspecialchars($post['url_post']);
+                $media = !empty($post['url_media']) ? htmlspecialchars($post['url_media']) : 'assets/img/default.png';
+                $desc = !empty($post['descripcion']) ? htmlspecialchars($post['descripcion']) : '';
+            ?>
+            <div class="col-md-4 col-10 mb-3 ig-slide" style="min-width:300px; scroll-snap-align: start;">
+                <div class="ig-post-box shadow rounded p-3 bg-white h-100">
+                    <div class="mb-2">
+                        <strong>bestune_venezuela</strong>
+                    </div>
+                    <div class="ig-thumbnail mb-2 rounded overflow-hidden">
+                        <img src="<?= $media ?>" alt="Instagram Media" class="w-100">
+                    </div>
+                    <p class="small mb-2 ig-description"><?= $desc ?></p>
+                    <a href="<?= $url ?>" target="_blank" class="btn btn-sm btn-outline-primary w-100">Ver en Instagram</a>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+
+<style>
+.row.flex-nowrap::-webkit-scrollbar {
+    display: none;
+}
+.row.flex-nowrap {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+.ig-post-box {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #fff;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.ig-thumbnail {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #eee;
+}
+.ig-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.ig-description {
+    max-height: 3.6em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.ig-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+    border-radius: 50%;
+}
+.ig-prev { left: -10px; }
+.ig-next { right: -10px; }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const slider = document.querySelector('.ig-slider');
+    const slideWidth = 320;
+    document.querySelector('.ig-next').addEventListener('click', () => {
+        slider.scrollBy({ left: slideWidth, behavior: 'smooth' });
+    });
+    document.querySelector('.ig-prev').addEventListener('click', () => {
+        slider.scrollBy({ left: -slideWidth, behavior: 'smooth' });
+    });
+});
+</script>
 <div class="testimonail-section mt-100 mb-100">
 	<div class="container">
 		<div class="row">
@@ -219,7 +323,8 @@ foreach ($slides as $slide) {
 							<img src="assets/img/sucursal1.webp" alt="">
 						</a>
 					</div>
-					<div class="client-meta">
+
+				<div class="client-meta">
 						<h3>EVENTO <span>Exhibición de vehículos</span></h3>
 						<p class="testimonial-body">
 							Gran exhibición en Guatire, con nuestros aliados comerciales 1947 RUTA. Sábado 04 de Febrero
