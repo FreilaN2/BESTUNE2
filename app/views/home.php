@@ -234,14 +234,16 @@ try {
             ?>
             <div class="col-md-4 col-10 mb-3 ig-slide" style="min-width:300px; scroll-snap-align: start;">
                 <div class="ig-post-box shadow rounded p-3 bg-white h-100">
-                    <div class="mb-2">
-                        <strong>bestune_venezuela</strong>
+                    <div class="ig-user mb-2">
+                        <i class="fab fa-instagram"></i> bestune_venezuela
                     </div>
                     <div class="ig-thumbnail mb-2 rounded overflow-hidden">
                         <img src="<?= $media ?>" alt="Instagram Media" class="w-100">
                     </div>
                     <p class="small mb-2 ig-description"><?= $desc ?></p>
-                    <a href="<?= $url ?>" target="_blank" class="btn btn-sm btn-outline-primary w-100">Ver en Instagram</a>
+                    <a href="<?= $url ?>" target="_blank" class="ig-btn-instagram">
+                        <i class="fab fa-instagram"></i> Ver en Instagram
+                    </a>
                 </div>
             </div>
             <?php endforeach; ?>
