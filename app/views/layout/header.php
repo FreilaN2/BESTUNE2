@@ -204,14 +204,16 @@ if (!function_exists('isActive')) {
 											<li><a class="dropdown-item <?php echo isActive('toyota-corolla') ? 'active' : ''; ?>" href="index.php?view=toyota-corolla">Corolla</a></li>
 											<li><a class="dropdown-item <?php echo isActive('toyota-levin') ? 'active' : ''; ?>" href="index.php?view=toyota-levin">Levin</a></li>
 											<li><a class="dropdown-item <?php echo isActive('toyota-corollacross') ? 'active' : ''; ?>" href="index.php?view=toyota-corollacross">Corolla Cross</a></li>
+											<li><a class="dropdown-item <?php echo isActive('toyota-rav4') ? 'active' : ''; ?>" href="index.php?view=toyota-rav4">RAV4</a></li>
+											<li><a class="dropdown-item <?php echo isActive('toyota-highlander') ? 'active' : ''; ?>" href="index.php?view=toyota-highlander">Highlander</a></li>
 										</ul>
 									</li>
 								</ul>
 							</li>
 
 
-							<li><a href="index.php?view=planes_venta" class="<?php echo isActive('planes_venta') ? 'active' : ''; ?>">PLANES DE VENTA</a></li>
-							
+							<?php // <li><a href="index.php?view=planes_venta" class="<?php echo isActive('planes_venta') ? 'active' : '';?>
+
 							<li><a href="https://bestune-venezuela.com/quienessomos.php" class="cart-btn" style="background:#fca311; color:white;">SOMOS INTERNACIONAL</a></li>
 						</ul>
 					</nav>

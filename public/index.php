@@ -57,6 +57,26 @@ switch ($view) {
 		include '../app/views/vehiculos/toyota-corollacross.php';	
 		break;
 
+	case 'toyota-corollacross-elite':
+		include '../app/views/vehiculos/toyota-corollacross-elite.php';	
+		break;
+
+	case 'toyota-rav4':
+		include '../app/views/vehiculos/toyota-rav4.php';	
+		break;
+
+	case 'toyota-rav4-plus':
+		include '../app/views/vehiculos/toyota-rav4-plus.php';	
+		break;
+
+	case 'toyota-highlander':
+		include '../app/views/vehiculos/toyota-highlander.php';	
+		break;
+
+	case 'toyota-highlander-extreme':
+		include '../app/views/vehiculos/toyota-highlander-extreme.php';	
+		break;
+
 	case 'home':
 	default:
 		include '../app/views/home.php';
