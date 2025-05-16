@@ -201,11 +201,11 @@ if (!function_exists('isActive')) {
 									</li>
 									<li><a class="dropdown-item" href="#">Faw Toyota <i class="fas fa-angle-right"></i></a>
 										<ul class="submenu dropdown-menu text-center">
-											<li><a class="dropdown-item <?php echo isActive('toyota-corolla') ? 'active' : ''; ?>" href="index.php?view=toyota-corolla">Corolla</a></li>
-											<li><a class="dropdown-item <?php echo isActive('toyota-levin') ? 'active' : ''; ?>" href="index.php?view=toyota-levin">Levin</a></li>
-											<li><a class="dropdown-item <?php echo isActive('toyota-corollacross') ? 'active' : ''; ?>" href="index.php?view=toyota-corollacross">Corolla Cross</a></li>
-											<li><a class="dropdown-item <?php echo isActive('toyota-rav4') ? 'active' : ''; ?>" href="index.php?view=toyota-rav4">RAV4</a></li>
-											<li><a class="dropdown-item <?php echo isActive('toyota-highlander') ? 'active' : ''; ?>" href="index.php?view=toyota-highlander">Highlander</a></li>
+											<li><a class=" <?php echo isActive('toyota-corolla') ? 'active' : ''; ?>" href="index.php?view=toyota-corolla">Corolla</a></li>
+											<li><a class=" <?php echo isActive('toyota-levin') ? 'active' : ''; ?>" href="index.php?view=toyota-levin">Levin</a></li>
+											<li><a class=" <?php echo isActive('toyota-corollacross') ? 'active' : ''; ?>" href="index.php?view=toyota-corollacross">Corolla Cross</a></li>
+											<li><a class=" <?php echo isActive('toyota-rav4') ? 'active' : ''; ?>" href="index.php?view=toyota-rav4">RAV4</a></li>
+											<li><a class=" <?php echo isActive('toyota-highlander') ? 'active' : ''; ?>" href="index.php?view=toyota-highlander">Highlander</a></li>
 										</ul>
 									</li>
 								</ul>
