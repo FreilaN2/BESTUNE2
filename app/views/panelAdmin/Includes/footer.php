@@ -1,8 +1,8 @@
-</div>
+</main>
 
-<footer class="mt-5 py-3 bg-light">
-    <div class="container text-center">
-        <p class="mb-0"><?= SITE_NAME ?> &copy; <?= date('Y') ?></p>
+<footer class="mt-auto bg-gray-900 text-white w-full">
+    <div class="max-w-screen-xl mx-auto px-4 py-6 text-center">
+        <p class="text-sm">&copy; <?= date('Y') ?> <?= SITE_NAME ?>.</p>
     </div>
 </footer>
 

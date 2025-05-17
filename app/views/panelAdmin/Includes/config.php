@@ -15,6 +15,6 @@ try {
 }
 
 // Configuración general
-define('SITE_NAME', 'Bestune Admin');
+define('SITE_NAME', 'Bestune');
 define('SITE_LOGO', '/BESTUNE2/public/assets/img/logo.png');
 ?>

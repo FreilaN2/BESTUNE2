@@ -6,59 +6,57 @@
     <title><?= isset($page_title) ? $page_title . ' | ' : '' ?><?= SITE_NAME ?></title>
     <link rel="icon" type="image/x-icon" href="/BESTUNE2/public/assets/img/favicon.ico">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-<link rel="stylesheet" href="/BESTUNE2/public/assets/css/styles.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Bootstrap Icons (opcional) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+    <!-- Tu CSS personalizado -->
+    <link rel="stylesheet" href="/BESTUNE2/public/assets/css/styles.css">
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-<a class="navbar-brand d-flex align-items-center" href="/BESTUNE2/app/views/panelAdmin/index.php">
-    <img src="<?= SITE_LOGO ?>" alt="<?= SITE_NAME ?>" height="40">
-</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/BESTUNE2/app/views/panelAdmin/usuarios/listar.php">Usuarios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/BESTUNE2/app/views/panelAdmin/promociones/listar.php">Promociones</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/BESTUNE2/app/views/panelAdmin/planes/listar.php">Planes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/BESTUNE2/app/views/panelAdmin/eventos/listar.php">Eventos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/BESTUNE2/app/views/panelAdmin/instagram/listar.php">Instagram</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                            <i class="bi bi-person-circle"></i> <?= getCurrentUser()['nombre'] ?>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">Mi perfil</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="logout.php">Cerrar sesión</a></li>
-                        </ul>
-                    </li>
-                </ul>
+<body class="bg-gray-100 text-gray-800 flex flex-col min-h-screen">
+
+<!-- NAVBAR -->
+<nav class="bg-gray-900 text-white shadow">
+  <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16 items-center">
+      <!-- Logo -->
+      <a href="/BESTUNE2/app/views/panelAdmin/index.php" class="flex items-center">
+        <img src="<?= SITE_LOGO ?>" alt="<?= SITE_NAME ?>" class="h-10">
+      </a>
+
+      <!-- Menu -->
+      <div class="flex-1 hidden md:flex justify-center items-center space-x-6">
+        <a href="/BESTUNE2/app/views/panelAdmin/usuarios/listar.php" class="hover:text-yellow-400 transition">Usuarios</a>
+        <a href="/BESTUNE2/app/views/panelAdmin/promociones/listar.php" class="hover:text-yellow-400 transition">Promociones</a>
+        <a href="/BESTUNE2/app/views/panelAdmin/planes/listar.php" class="hover:text-yellow-400 transition">Planes</a>
+        <a href="/BESTUNE2/app/views/panelAdmin/eventos/listar.php" class="hover:text-yellow-400 transition">Eventos</a>
+        <a href="/BESTUNE2/app/views/panelAdmin/instagram/listar.php" class="hover:text-yellow-400 transition">Instagram</a>
+      </div>
+
+      <!-- Icono logout -->
+      <div class="ml-auto flex items-center space-x-2">
+        <a href="/BESTUNE2/app/views/panelAdmin/logout.php" title="Cerrar sesión" class="text-white hover:text-red-400 transition">
+          <i class="bi bi-box-arrow-right text-2xl"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- CONTENIDO PRINCIPAL -->
+<main class="flex-grow max-w-screen-xl mx-auto px-4 py-6 w-full">
+    <?php if (isset($_SESSION['message'])): ?>
+        <div class="mb-4 p-4 rounded text-white 
+            <?= $_SESSION['message_type'] === 'success' ? 'bg-green-500' : '' ?>
+            <?= $_SESSION['message_type'] === 'danger' ? 'bg-red-500' : '' ?>
+            <?= $_SESSION['message_type'] === 'warning' ? 'bg-yellow-500 text-black' : '' ?>
+        ">
+            <div class="flex justify-between items-center">
+                <span><?= $_SESSION['message'] ?></span>
+                <button onclick="this.parentElement.parentElement.remove();" class="text-white hover:text-gray-200 font-bold text-xl leading-none">&times;</button>
             </div>
         </div>
-    </nav>
-
-    <div class="container mt-4">
-        <?php if (isset($_SESSION['message'])): ?>
-            <div class="alert alert-<?= $_SESSION['message_type'] ?> alert-dismissible fade show">
-                <?= $_SESSION['message'] ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-            <?php unset($_SESSION['message'], $_SESSION['message_type']); ?>
-        <?php endif; ?>
+        <?php unset($_SESSION['message'], $_SESSION['message_type']); ?>
+    <?php endif; ?>

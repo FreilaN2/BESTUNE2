@@ -28,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif ($_FILES['media']['size'] > 10 * 1024 * 1024) {
             $errors[] = "El archivo es demasiado grande. Máximo 10MB permitidos.";
         } else {
-            // Guardar en /public/assets/img/instagram/
             $upload_dir = realpath(__DIR__ . '/../../../../') . '/public/assets/img/instagram/';
             if ($upload_dir === false) {
                 $errors[] = "No se pudo acceder a la carpeta de destino.";
@@ -41,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $destino = $upload_dir . $media_nombre;
 
                 if (move_uploaded_file($_FILES['media']['tmp_name'], $destino)) {
-                    // Ruta pública
                     $media_url = 'assets/img/instagram/' . $media_nombre;
                 } else {
                     $errors[] = "Error al subir el archivo.";
@@ -83,43 +81,70 @@ $url_value = $_POST['url_post'] ?? '';
 $visible_checked = isset($_POST['visible']) ? 'checked' : '';
 ?>
 
-<div class="card">
-    <div class="card-body">
-        <h2 class="card-title">Crear Post de Instagram</h2>
-
-        <?php if (!empty($errors)): ?>
-            <div class="alert alert-danger">
-                <ul class="mb-0">
-                    <?php foreach ($errors as $error): ?>
-                        <li><?= $error ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        <?php endif; ?>
-
-        <form method="POST" enctype="multipart/form-data">
-            <div class="mb-3">
-                <label for="descripcion" class="form-label">Descripción *</label>
-                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required><?= htmlspecialchars($descripcion_value) ?></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="url_post" class="form-label">URL *</label>
-                <input type="url" class="form-control" id="url_post" name="url_post" required value="<?= htmlspecialchars($url_value) ?>">
-                <small class="text-muted">Ejemplo: https://www.instagram.com/p/Cg5hJY5LQ6P/</small>
-            </div>
-            <div class="mb-3">
-                <label for="media" class="form-label">Foto o Video *</label>
-                <input type="file" class="form-control" id="media" name="media" accept="image/*,video/*" required>
-                <small class="text-muted">Formatos permitidos: JPG, PNG, GIF, MP4, WEBM. Máximo 10MB.</small>
-            </div>
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="visible" name="visible" <?= $visible_checked ?>>
-                <label class="form-check-label" for="visible">Visible en el sitio</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Crear Post</button>
-            <a href="listar.php" class="btn btn-secondary">Cancelar</a>
-        </form>
+<div class="max-w-3xl mx-auto bg-white border border-blue-100 p-8 rounded-xl shadow-lg mt-10">
+    <div class="flex items-center gap-3 mb-6 border-b pb-3 border-blue-500">
+        <i class="bi bi-instagram text-3xl text-blue-600"></i>
+        <h2 class="text-2xl font-bold text-blue-800">Crear Post de Instagram</h2>
     </div>
+
+    <?php if (!empty($errors)): ?>
+        <div class="mb-4 bg-red-100 text-red-800 px-4 py-3 rounded">
+            <ul class="list-disc pl-5 space-y-1">
+                <?php foreach ($errors as $error): ?>
+                    <li><?= $error ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+
+    <form method="POST" enctype="multipart/form-data" class="space-y-6">
+        <div>
+            <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción *</label>
+            <textarea id="descripcion" name="descripcion" required rows="3"
+                      class="mt-1 w-full border border-gray-300 bg-gray-50 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"><?= htmlspecialchars($descripcion_value) ?></textarea>
+        </div>
+
+        <div>
+            <label for="url_post" class="block text-sm font-medium text-gray-700">URL *</label>
+            <input type="url" id="url_post" name="url_post" required
+                   class="mt-1 w-full border border-gray-300 bg-gray-50 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                   value="<?= htmlspecialchars($url_value) ?>">
+            <p class="text-xs text-gray-500 mt-1">Ejemplo: https://www.instagram.com/p/Cg5hJY5LQ6P/</p>
+        </div>
+
+        <div>
+            <label for="media" class="block text-sm font-medium text-gray-700">Foto o Video *</label>
+            <input type="file" id="media" name="media" accept="image/*,video/*" required
+                   class="mt-1 w-full border border-gray-300 bg-white rounded-md shadow-sm">
+            <p class="text-xs text-gray-500 mt-1">Formatos permitidos: JPG, PNG, GIF, MP4, WEBM. Máx. 10MB.</p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-6 pt-4 border-t">
+            <label class="flex items-center cursor-pointer">
+                <div class="relative">
+                    <input type="checkbox" id="visible" name="visible"
+                           class="sr-only peer" <?= $visible_checked ?>>
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:bg-green-500 transition-all"></div>
+                    <div class="absolute top-0.5 left-0.5 bg-white w-5 h-5 rounded-full transition-all peer-checked:translate-x-full"></div>
+                </div>
+                <span class="ml-3 text-sm text-gray-700">Visible en el sitio</span>
+            </label>
+        </div>
+
+        <div class="flex justify-end gap-4 pt-6 border-t">
+            <button type="submit"
+                    class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded-md shadow-sm transition">
+                <i class="bi bi-check-circle-fill text-base"></i>
+                Crear
+            </button>
+
+            <a href="listar.php"
+               class="inline-flex items-center gap-2 border border-gray-300 text-gray-700 hover:bg-gray-100 font-medium px-6 py-2 rounded-md shadow-sm transition">
+                <i class="bi bi-x-lg text-base"></i>
+                Cancelar
+            </a>
+        </div>
+    </form>
 </div>
 
 <?php require_once '../includes/footer.php'; ?>
