@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta content="Toyota Highlander 2024, SUV, 4WD, Extreme Edition, 7 asientos" name="description" />
-  <title>TOYOTA HIGHLANDER</title>
+  <title>TOYOTA HIGHLANDER EXTREME</title>
   <style>
     #HGFOTOS {
       padding: 0;

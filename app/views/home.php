@@ -8,6 +8,9 @@
 	<meta content="bestune venezuela" name="keywords" />
 	<meta content="bestune venezuela,BESTUNE,FAW" name="description" />
 	<title>BESTUNE VENEZUELA</title>
+</head>
+
+<body>
 
 	<div class="homepage-slider owl-carousel">
 <?php
@@ -84,11 +87,11 @@ foreach ($slides as $slide) {
 
 			<?php
 			$vehiculos = [
-				['nombre' => 'T99', 'img' => 't99/t99-12.webp', 'url' => 'bestune-t99.php'],
-				['nombre' => 'T77', 'img' => 't77/t77bg.webp', 'url' => 'bestune-t77.php' , 'class' => 'product-image3'],
-				['nombre' => 'T55', 'img' => 't55/T55-7.webp', 'url' => 'bestune-t55.php'],
-				['nombre' => 'B70', 'img' => 'b70/B70.webp', 'url' => 'bestune-b70.php'],
-				['nombre' => 'R7', 'img' => 'r7/R7.webp', 'url' => 'bestune-R7.php', 'class' => 'product-image2'],
+				['nombre' => 'T99', 'img' => 't99/t99-12.webp', 'url' => './index.php?view=bestune-t99'],
+				['nombre' => 'T77', 'img' => 't77/t77bg.webp', 'url' => './index.php?view=bestune-t77' , 'class' => 'product-image3'],
+				['nombre' => 'T55', 'img' => 't55/T55-7.webp', 'url' => './index.php?view=bestune-t55'],
+				['nombre' => 'B70', 'img' => 'b70/B70.webp', 'url' => './index.php?view=bestune-b70'],
+				['nombre' => 'R7', 'img' => 'r7/R7.webp', 'url' => './index.php?view=bestune-r7', 'class' => 'product-image2'],
 			];
 			foreach ($vehiculos as $vehiculo):
 			?>
@@ -105,6 +108,47 @@ foreach ($slides as $slide) {
 		</div>
 	</div>
 </div>
+
+ <div class="section-title">
+    <h3><span class="orange-text">VEHÍCULOS TOYOTA</span></h3>
+    <p>Explora nuestra gama de modelos Toyota.</p>
+  </div>
+
+  <div class="coverflow-wrapper">
+    <button class="slider-btn left" onclick="moveCover(-1)">&#9664;</button>
+    <div class="coverflow" id="coverflow">
+      <?php
+        $modelos = [
+           ['nombre' => 'Levin Deluxe', 'img' => 'levin/levin.webp', 'url' => './index.php?view=toyota-levin'],
+            ['nombre' => 'Levin Sports', 'img' => 'levin_sports/levin_sports.webp', 'url' => './index.php?view=toyota-levin-sports'],
+            ['nombre' => 'Corolla Cross Pioneer', 'img' => 'corollacross/corollacross.webp', 'url' => './index.php?view=toyota-corollacross'],
+            ['nombre' => 'Corolla Cross Elite', 'img' => 'corollacross_elite/corollacross_elite.webp', 'url' => './index.php?view=toyota-corollacross-elite'],
+            ['nombre' => 'RAV4 Urban', 'img' => 'rav4/rav4.webp', 'url' => './index.php?view=toyota-rav4'],
+            ['nombre' => 'RAV4 Plus', 'img' => 'rav4_plus/rav4_plus.webp', 'url' => './index.php?view=toyota-rav4-plus'],
+            ['nombre' => 'Highlander Deluxe', 'img' => 'hg/hg.webp', 'url' => './index.php?view=toyota-highlander'],
+            ['nombre' => 'Highlander Extreme', 'img' => 'hg_extreme/hg_extreme.webp', 'url' => './index.php?view=toyota-highlander-extreme']
+        ];
+        foreach ($modelos as $i => $v):
+      ?>
+        <div class="cover-item" data-index="<?= $i ?>">
+          <div class="single-product-item">
+            <img src="assets/img/<?= $v['img'] ?>" alt="<?= $v['nombre'] ?>">
+
+            <p><?= $v['nombre'] ?></p>
+            <a href="<?= $v['url'] ?>" class="cart-btn">Ver más</a>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+    <button class="slider-btn right" onclick="moveCover(1)">&#9654;</button>
+  </div>
+
+<div class="pagination" style="margin-bottom: 40px;">
+  <?php for ($i = 0; $i < count($modelos); $i++): ?>
+    <span class="dot" onclick="goToSlide(<?= $i ?>)"></span>
+  <?php endfor; ?>
+</div>
+
 
 <div class="list-section pt-80 pb-80">
 	<div class="container">
@@ -336,6 +380,47 @@ document.addEventListener('DOMContentLoaded', function () {
 		updateSlider();
 	}, 5000);
 });
+
+	let current = 0;
+
+	function moveCover(dir) {
+	const items = document.querySelectorAll('.cover-item');
+	current = (current + dir + items.length) % items.length;
+	renderCover(items);
+	}
+
+	function goToSlide(index) {
+	const items = document.querySelectorAll('.cover-item');
+	current = index;
+	renderCover(items);
+	}
+
+	function renderCover(items) {
+	const dots = document.querySelectorAll('.dot');
+	items.forEach((item, i) => {
+		item.classList.remove('active');
+		const offset = i - current;
+		const absOffset = Math.abs(offset);
+		const baseTranslate = 220;
+		const baseRotate = 50;
+		if (offset === 0) {
+		item.classList.add('active');
+		item.style.transform = 'translate(-50%, -50%) scale(1.1)';
+		} else {
+		const sign = offset < 0 ? -1 : 1;
+		item.style.transform = `translate(calc(-50% + ${sign * baseTranslate * absOffset}px), -50%) rotateY(${-sign * baseRotate}deg) scale(0.85)`;
+		}
+	});
+	dots.forEach((dot, i) => {
+		dot.classList.toggle('active', i === current);
+	});
+	}
+
+	document.addEventListener('DOMContentLoaded', () => {
+	const items = document.querySelectorAll('.cover-item');
+	if (items.length) renderCover(items);
+	});
+
 </script>
 
 </body>

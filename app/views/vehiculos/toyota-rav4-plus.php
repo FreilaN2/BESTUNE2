@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta content="Toyota RAV4 Adventure Plus Edition 2024, SUV, CVT, 4WD, FAW" name="description" />
-  <title>TOYOTA RAV4 Adventure Plus Edition</title>
+  <title>TOYOTA RAV4 PLUS</title>
   <style>
     #RAV4FOTOS {
       padding: 0;

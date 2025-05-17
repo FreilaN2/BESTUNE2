@@ -203,9 +203,13 @@ if (!function_exists('isActive')) {
 										<ul class="submenu dropdown-menu text-center">
 											<li><a class=" <?php echo isActive('toyota-corolla') ? 'active' : ''; ?>" href="index.php?view=toyota-corolla">Corolla</a></li>
 											<li><a class=" <?php echo isActive('toyota-levin') ? 'active' : ''; ?>" href="index.php?view=toyota-levin">Levin</a></li>
+											<li><a class=" <?php echo isActive('toyota-levin-sports') ? 'active' : ''; ?>" href="index.php?view=toyota-levin-sports">Levin Sports</a></li>
 											<li><a class=" <?php echo isActive('toyota-corollacross') ? 'active' : ''; ?>" href="index.php?view=toyota-corollacross">Corolla Cross</a></li>
+											<li><a class=" <?php echo isActive('toyota-corollacross-elite') ? 'active' : ''; ?>" href="index.php?view=toyota-corollacross-elite">Corolla Cross Elite</a></li>
 											<li><a class=" <?php echo isActive('toyota-rav4') ? 'active' : ''; ?>" href="index.php?view=toyota-rav4">RAV4</a></li>
+											<li><a class=" <?php echo isActive('toyota-rav4-plus') ? 'active' : ''; ?>" href="index.php?view=toyota-rav4-plus">RAV4 Plus</a></li>
 											<li><a class=" <?php echo isActive('toyota-highlander') ? 'active' : ''; ?>" href="index.php?view=toyota-highlander">Highlander</a></li>
+											<li><a class=" <?php echo isActive('toyota-highlander-extreme') ? 'active' : ''; ?>" href="index.php?view=toyota-highlander-extreme">Highlander Extreme</a></li>
 										</ul>
 									</li>
 								</ul>
