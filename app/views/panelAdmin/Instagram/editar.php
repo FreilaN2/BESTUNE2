@@ -54,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 mkdir($upload_dir, 0755, true);
             }
 
-            // Eliminar el archivo anterior si existe
             if (!empty($media_actual)) {
                 $archivo_anterior = realpath(__DIR__ . '/../../../../') . '/public/' . ltrim($media_actual, '/');
                 if (file_exists($archivo_anterior)) {
@@ -62,7 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
 
-            // Generar nuevo nombre y mover archivo
             $media_nombre = 'instagram_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
             $destino = $upload_dir . $media_nombre;
 
@@ -94,55 +92,83 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $descripcion_value = $_POST['descripcion'] ?? $post['descripcion'];
 $url_value = $_POST['url_post'] ?? $post['url_post'];
-$visible_checked = isset($_POST['visible']) || $post['visible'] ? 'checked' : '';
 ?>
 
-<div class="card">
-    <div class="card-body">
-        <h2 class="card-title">Editar Post de Instagram</h2>
-
-        <?php if (!empty($errors)): ?>
-            <div class="alert alert-danger">
-                <ul class="mb-0">
-                    <?php foreach ($errors as $error): ?>
-                        <li><?= $error ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        <?php endif; ?>
-
-        <form method="POST" enctype="multipart/form-data">
-            <div class="mb-3">
-                <label for="descripcion" class="form-label">Descripción *</label>
-                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required><?= htmlspecialchars($descripcion_value) ?></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="url_post" class="form-label">URL *</label>
-                <input type="url" class="form-control" id="url_post" name="url_post" required value="<?= htmlspecialchars($url_value) ?>">
-            </div>
-            <div class="mb-3">
-                <label for="media" class="form-label">Foto o Video</label>
-                <input type="file" class="form-control" id="media" name="media" accept="image/*,video/*">
-                <small class="text-muted">Formatos permitidos: JPG, PNG, GIF, MP4, WEBM. Máximo 10MB.</small>
-                <?php if (!empty($post['url_media'])): ?>
-                    <div class="mt-2">
-                        <?php if (preg_match('/\.(mp4|webm)$/i', $post['url_media'])): ?>
-                            <video src="../<?= htmlspecialchars($post['url_media']) ?>" controls style="max-height: 200px;" class="img-thumbnail"></video>
-                        <?php else: ?>
-                          <img src="/BESTUNE2/public/<?= htmlspecialchars($post['url_media']) ?>"  alt="Media actual" style="max-height: 200px;" class="img-thumbnail">
-                        <?php endif; ?>
-                        <p class="text-muted mt-1">Archivo actual</p>
-                    </div>
-                <?php endif; ?>
-            </div>
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="visible" name="visible" <?= $visible_checked ?>>
-                <label class="form-check-label" for="visible">Visible en el sitio</label>
-            </div>
-            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-            <a href="listar.php" class="btn btn-secondary">Cancelar</a>
-        </form>
+<div class="max-w-3xl mx-auto bg-white border border-blue-100 p-8 rounded-xl shadow-lg mt-10">
+    <div class="flex items-center gap-3 mb-6 border-b pb-3 border-blue-500">
+        <i class="bi bi-pencil-square text-3xl text-blue-600"></i>
+        <h2 class="text-2xl font-bold text-blue-800">Editar Post de Instagram</h2>
     </div>
+
+    <?php if (!empty($errors)): ?>
+        <div class="mb-4 bg-red-100 text-red-800 px-4 py-3 rounded">
+            <ul class="list-disc pl-5 space-y-1">
+                <?php foreach ($errors as $error): ?>
+                    <li><?= $error ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+
+    <form method="POST" enctype="multipart/form-data" class="space-y-6">
+        <div>
+            <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción *</label>
+            <textarea id="descripcion" name="descripcion" required rows="3"
+                class="mt-1 w-full border border-gray-300 bg-gray-50 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"><?= htmlspecialchars($descripcion_value) ?></textarea>
+        </div>
+
+        <div>
+            <label for="url_post" class="block text-sm font-medium text-gray-700">URL *</label>
+            <input type="url" id="url_post" name="url_post" required
+                class="mt-1 w-full border border-gray-300 bg-gray-50 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                value="<?= htmlspecialchars($url_value) ?>">
+        </div>
+
+        <div>
+            <label for="media" class="block text-sm font-medium text-gray-700">Media</label>
+            <input type="file" id="media" name="media" accept="image/*,video/*"
+                class="mt-1 w-full border border-gray-300 bg-white rounded-md shadow-sm">
+            <small class="text-gray-500">Formatos: JPG, PNG, GIF, MP4, WEBM. Máx. 10MB</small>
+
+            <?php if (!empty($post['url_media'])): ?>
+                <div class="mt-2">
+                    <?php if (preg_match('/\.(mp4|webm)$/i', $post['url_media'])): ?>
+                        <video src="/BESTUNE2/public/<?= htmlspecialchars($post['url_media']) ?>" controls class="rounded shadow h-48"></video>
+                    <?php else: ?>
+                        <img src="/BESTUNE2/public/<?= htmlspecialchars($post['url_media']) ?>" alt="Media actual" class="h-48 rounded shadow object-contain">
+                    <?php endif; ?>
+                    <p class="text-gray-500 text-sm mt-1">Media actual</p>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <div>
+            <h3 class="text-lg font-semibold text-gray-700 mb-2">Visibilidad</h3>
+            <label class="flex items-center cursor-pointer">
+                <div class="relative">
+                    <input type="checkbox" id="visible" name="visible"
+                        class="sr-only peer"
+                        <?= $post['visible'] ? 'checked' : '' ?>>
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:bg-green-500 transition-all"></div>
+                    <div class="absolute top-0.5 left-0.5 bg-white w-5 h-5 rounded-full transition-all peer-checked:translate-x-full"></div>
+                </div>
+                <span class="ml-3 text-sm text-gray-700">Visible en el sitio</span>
+            </label>
+        </div>
+
+        <div class="flex justify-end gap-4 pt-4 border-t">
+            <button type="submit"
+                class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded-md shadow-sm transition">
+                <i class="bi bi-check-circle-fill text-base"></i>
+                Guardar
+            </button>
+            <a href="listar.php"
+               class="inline-flex items-center gap-2 border border-gray-300 text-gray-700 hover:bg-gray-100 font-medium px-6 py-2 rounded-md shadow-sm transition">
+                <i class="bi bi-x-lg text-base"></i>
+                Cancelar
+            </a>
+        </div>
+    </form>
 </div>
 
 <?php require_once '../includes/footer.php'; ?>
