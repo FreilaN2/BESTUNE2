@@ -35,49 +35,145 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login | <?= SITE_NAME ?></title>
-    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/BESTUNE2/public/assets/img/favicon.ico">
+
+    <!-- Atlantis Lite CSS -->
+    <link rel="stylesheet" href="/BESTUNE2/public/assets/Atlantis-Lite-master/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/BESTUNE2/public/assets/Atlantis-Lite-master/assets/css/atlantis.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
     <style>
-        @keyframes fadeInUp {
+        body {
+            background-color: #0A0F1A;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', sans-serif;
+            position: relative;
+        }
+
+        .card-login {
+            background: rgba(25, 28, 35, 0.95);
+            border-radius: 14px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 400px;
+            color: #ffffff;
+            animation: softPop 0.5s ease-out;
+        }
+
+        .form-control {
+            border-radius: 0.5rem;
+            background-color: #1e2330;
+            border: 1px solid #2f354a;
+            color: #fff;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control::placeholder {
+            color: #aaa;
+        }
+
+        .form-control:hover {
+            border-color: #FFB300;
+        }
+
+        .form-control:focus {
+            background-color: #1e2330;
+            color: #fff;
+            border-color: #FFB300;
+            box-shadow: 0 0 0 0.2rem rgba(255,179,0,0.25);
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            width: 300px;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #ccc;
+        }
+
+        .btn-primary {
+            background-color: #FFB300;
+            border-color: #FFB300;
+            color: #0A0F1A;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #e09e00;
+            border-color: #e09e00;
+            transform: scale(1.03);
+        }
+
+        .alert {
+            background-color: #d9534f;
+            color: #fff;
+            border: none;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 15px;
+            text-align: center;
+            width: 100%;
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        @keyframes softPop {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: scale(1);
             }
-        }
-        .animate-fadeInUp {
-            animation: fadeInUp 0.6s ease-out forwards;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center">
+<body>
 
-    <div class="w-full max-w-md bg-gray-800 rounded-xl shadow-lg p-8 animate-fadeInUp">
-        <h2 class="text-2xl font-bold text-center mb-6">Iniciar Sesión</h2>
+    <div class="card-login animate__animated animate__fadeInDown">
+        <img src="/BESTUNE2/public/assets/img/logo.png" alt="Logo" class="logo">
 
         <?php if (isset($error)): ?>
-            <div class="bg-red-500 text-white text-sm px-4 py-2 mb-4 rounded">
+            <div class="alert text-center" role="alert">
                 <?= $error ?>
             </div>
         <?php endif; ?>
 
-        <form method="POST" class="space-y-5">
-            <div>
-                <label for="email" class="block mb-1 text-sm font-medium">Email</label>
-                <input type="email" id="email" name="email" required
-                    class="w-full px-4 py-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <form method="POST">
+            <div class="form-group">
+                <label for="email" class="form-label">Correo electrónico</label>
+                <input type="email" name="email" id="email" class="form-control" placeholder="correo@dominio.com" required>
             </div>
-            <div>
-                <label for="password" class="block mb-1 text-sm font-medium">Contraseña</label>
-                <input type="password" id="password" name="password" required
-                    class="w-full px-4 py-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <div class="form-group mt-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" name="password" id="password" class="form-control" placeholder="••••••••" required>
             </div>
-            <button type="submit"
-                class="w-full bg-blue-600 hover:bg-blue-700 transition-colors px-4 py-2 rounded font-semibold">Ingresar</button>
+            <button type="submit" class="btn btn-primary btn-block mt-4">Ingresar</button>
         </form>
     </div>
 
+    <footer>
+        &copy; <?= date('Y') ?> BESTUNE Panel Admin. Todos los derechos reservados.
+    </footer>
+
+    <!-- Atlantis Lite JS -->
+    <script src="/BESTUNE2/public/assets/Atlantis-Lite-master/assets/js/core/jquery.3.2.1.min.js"></script>
+    <script src="/BESTUNE2/public/assets/Atlantis-Lite-master/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="/BESTUNE2/public/assets/Atlantis-Lite-master/assets/js/core/popper.min.js"></script>
+    <script src="/BESTUNE2/public/assets/Atlantis-Lite-master/assets/js/core/bootstrap.min.js"></script>
+    <script src="/BESTUNE2/public/assets/Atlantis-Lite-master/assets/js/atlantis.min.js"></script>
 </body>
 </html>

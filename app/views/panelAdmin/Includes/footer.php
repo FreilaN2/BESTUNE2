@@ -1,12 +1,27 @@
-</main>
-
-<footer class="mt-auto bg-gray-900 text-white w-full">
-    <div class="max-w-screen-xl mx-auto px-4 py-6 text-center">
-        <p class="text-sm">&copy; <?= date('Y') ?> <?= SITE_NAME ?>.</p>
+<footer class="footer mt-auto">
+    <div class="container-fluid">
+        <nav class="pull-left">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="http://www.corpoasia.net/" target="_blank">
+                        Corpoasia
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="copyright ml-auto">
+            <?= date('Y') ?>, hecho con <i class="fa fa-certificate"></i> por <a href="http://www.corpoasia.net/" target="_blank">Corpoasia</a>
+        </div>				
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="<?= BASE_URL ?>assets/js/scripts.js"></script>
+<!-- Core JS de Atlantis -->
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/core/popper.min.js"></script>
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/core/bootstrap.min.js"></script>
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/atlantis.min.js"></script>
+
 </body>
 </html>

@@ -13,117 +13,108 @@ if (!isAdmin()) {
 $page_title = 'Gestión de Usuarios';
 require_once '../includes/header.php';
 
-$limit = 10;
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$offset = ($page - 1) * $limit;
-
-$stmt = $db->prepare("SELECT * FROM usuarios ORDER BY fecha_registro DESC LIMIT ? OFFSET ?");
-$stmt->bindValue(1, $limit, PDO::PARAM_INT);
-$stmt->bindValue(2, $offset, PDO::PARAM_INT);
+$stmt = $db->prepare("SELECT * FROM usuarios ORDER BY fecha_registro DESC");
 $stmt->execute();
 $usuarios = $stmt->fetchAll();
-
-$total = $db->query("SELECT COUNT(*) FROM usuarios")->fetchColumn();
-$total_pages = ceil($total / $limit);
 ?>
 
-<div class="flex justify-between items-center mb-6">
-    <h1 class="text-3xl font-bold text-gray-900 border-b-2 border-blue-500 inline-block pb-1">
-        Gestión de Usuarios
-    </h1>
-    <a href="crear.php" class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow transition">
-        <i class="bi bi-plus-circle text-lg"></i>
-        <span class="font-medium">Nuevo Usuario</span>
-    </a>
-</div>
-
-<?php if (isset($_SESSION['message'])): ?>
-    <div class="flex items-start gap-3 mb-4 p-4 rounded-lg
-        <?= $_SESSION['message_type'] === 'success' ? 'bg-green-100 text-green-800' : '' ?>
-        <?= $_SESSION['message_type'] === 'danger' ? 'bg-red-100 text-red-800' : '' ?>
-        <?= $_SESSION['message_type'] === 'warning' ? 'bg-yellow-100 text-yellow-800' : '' ?>">
-        <svg class="w-6 h-6 mt-1" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M18 10c0 4.418-3.582 8-8 8s-8-3.582-8-8 3.582-8 8-8 8 3.582 8 8zM9 9v4h2V9H9zm0-4v2h2V5H9z" clip-rule="evenodd"/>
-        </svg>
-        <div><?= $_SESSION['message'] ?></div>
+<div class="page-inner">
+    <div class="page-header">
+        <h4 class="page-title">Gestión de Usuarios</h4>
+        <a href="crear.php" class="btn btn-success btn-round ml-auto">
+            <i class="fa fa-plus"></i> Nuevo Usuario
+        </a>
     </div>
+
+    <?php if (isset($_SESSION['message'])): ?>
+    <script>
+        $(document).ready(function () {
+            $.notify({
+                icon: 'flaticon-info',
+                title: 'Mensaje',
+                message: '<?= $_SESSION['message'] ?>',
+            },{
+                type: '<?= $_SESSION['message_type'] ?>',
+                placement: {
+                    from: "top",
+                    align: "right"
+                },
+                delay: 3000,
+            });
+        });
+    </script>
     <?php unset($_SESSION['message'], $_SESSION['message_type']); ?>
-<?php endif; ?>
+    <?php endif; ?>
 
-<div class="overflow-x-auto rounded-lg shadow border border-gray-200 bg-white">
-    <table class="w-full table-auto border-collapse">
-        <thead class="bg-gray-100 text-sm text-gray-700 uppercase">
-            <tr>
-                <th class="p-3 text-left">ID</th>
-                <th class="p-3 text-left">Nombre</th>
-                <th class="p-3 text-left">Email</th>
-                <th class="p-3 text-left">Teléfono</th>
-                <th class="p-3 text-left">Registro</th>
-                <th class="p-3 text-left">Rol</th>
-                <th class="p-3 text-left">Estado</th>
-                <th class="p-3 text-center">Acciones</th>
-            </tr>
-        </thead>
-        <tbody class="text-gray-800 text-sm">
-            <?php foreach ($usuarios as $usuario): ?>
-            <tr class="hover:bg-gray-50">
-                <td class="p-3"><?= $usuario['id_usuario'] ?></td>
-                <td class="p-3"><?= htmlspecialchars($usuario['nombre']) ?></td>
-                <td class="p-3"><?= htmlspecialchars($usuario['email']) ?></td>
-                <td class="p-3"><?= htmlspecialchars($usuario['telefono'] ?? 'N/A') ?></td>
-                <td class="p-3"><?= date('d/m/Y', strtotime($usuario['fecha_registro'])) ?></td>
-                <td class="p-3">
-                    <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium 
-                        <?= $usuario['es_administrador'] ? 'bg-blue-100 text-blue-800' : 'bg-gray-200 text-gray-700' ?>">
-                        <i class="bi <?= $usuario['es_administrador'] ? 'bi-shield-lock' : 'bi-person' ?>"></i>
-                        <?= $usuario['es_administrador'] ? 'Admin' : 'Usuario' ?>
-                    </span>
-                </td>
-                <td class="p-3">
-                    <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium 
-                        <?= $usuario['activo'] ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' ?>">
-                        <i class="bi <?= $usuario['activo'] ? 'bi-check-circle' : 'bi-x-circle' ?>"></i>
-                        <?= $usuario['activo'] ? 'Activo' : 'Inactivo' ?>
-                    </span>
-                </td>
-                <td class="p-3 flex justify-center gap-2">
-                    <a href="editar.php?id=<?= $usuario['id_usuario'] ?>" class="text-blue-600 hover:text-blue-800">
-                        <i class="bi bi-pencil-square text-lg"></i>
-                    </a>
-                    <?php if ($usuario['id_usuario'] != $_SESSION['user_id']): ?>
-                    <a href="../includes/actions/usuarios/eliminar.php?id=<?= $usuario['id_usuario'] ?>"
-                       onclick="return confirm('¿Estás seguro de eliminar este usuario?')"
-                       class="text-red-600 hover:text-red-800">
-                        <i class="bi bi-trash text-lg"></i>
-                    </a>
-                    <?php endif; ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="datatable-users" class="display table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                            <th>Registro</th>
+                            <th>Rol</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($usuarios as $usuario): ?>
+                        <tr>
+                            <td><?= $usuario['id_usuario'] ?></td>
+                            <td><?= htmlspecialchars($usuario['nombre']) ?></td>
+                            <td><?= htmlspecialchars($usuario['email']) ?></td>
+                            <td><?= htmlspecialchars($usuario['telefono'] ?? 'No registrado') ?></td>
+                            <td><?= date('d/m/Y', strtotime($usuario['fecha_registro'])) ?></td>
+                            <td>
+                                <span class="badge badge-<?= $usuario['es_administrador'] ? 'primary' : 'secondary' ?>">
+                                    <i class="fa <?= $usuario['es_administrador'] ? 'fa-user-shield' : 'fa-user' ?>"></i>
+                                    <?= $usuario['es_administrador'] ? 'Admin' : 'Usuario' ?>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge badge-<?= $usuario['activo'] ? 'success' : 'danger' ?>">
+                                    <i class="fa <?= $usuario['activo'] ? 'fa-check-circle' : 'fa-times-circle' ?>"></i>
+                                    <?= $usuario['activo'] ? 'Activo' : 'Inactivo' ?>
+                                </span>
+                            </td>
+                            <td>
+                                <a href="editar.php?id=<?= $usuario['id_usuario'] ?>" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                                <?php if ($usuario['id_usuario'] != $_SESSION['user_id'] && $usuario['id_usuario'] != 1): ?>
+                                <a href="../includes/actions/usuarios/eliminar.php?id=<?= $usuario['id_usuario'] ?>" onclick="return confirm('¿Estás seguro de eliminar este usuario?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div> 
+    </div>
 </div>
+</main>
+</div> <!-- Cierra wrapper -->
 
-<?php if ($total_pages > 1): ?>
-<div class="mt-6 flex justify-center">
-    <ul class="inline-flex -space-x-px text-sm">
-        <?php if ($page > 1): ?>
-        <li>
-            <a href="?page=<?= $page - 1 ?>" class="px-3 py-2 border rounded-l hover:bg-gray-200">←</a>
-        </li>
-        <?php endif; ?>
-        <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-        <li>
-            <a href="?page=<?= $i ?>" class="px-3 py-2 border <?= $i == $page ? 'bg-gray-900 text-white' : 'hover:bg-gray-100' ?>"><?= $i ?></a>
-        </li>
-        <?php endfor; ?>
-        <?php if ($page < $total_pages): ?>
-        <li>
-            <a href="?page=<?= $page + 1 ?>" class="px-3 py-2 border rounded-r hover:bg-gray-200">→</a>
-        </li>
-        <?php endif; ?>
-    </ul>
-</div>
-<?php endif; ?>
+<!-- Librerías necesarias -->
+<link rel="stylesheet" href="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/css/datatables.min.css">
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/plugin/datatables/datatables.min.js"></script>
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+<!-- Inicialización de DataTables -->
+<script>
+    $(document).ready(function() {
+        $('#datatable-users').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+            },
+            "pageLength": 10
+        });
+    });
+</script>
 
 <?php require_once '../includes/footer.php'; ?>

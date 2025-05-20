@@ -1,62 +1,103 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= isset($page_title) ? $page_title . ' | ' : '' ?><?= SITE_NAME ?></title>
-    <link rel="icon" type="image/x-icon" href="/BESTUNE2/public/assets/img/favicon.ico">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title><?= isset($page_title) ? $page_title . ' | ' : '' ?><?= SITE_NAME ?></title>
+	<link rel="icon" type="image/x-icon" href="/BESTUNE2/public/assets/img/favicon.ico">
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Bootstrap Icons (opcional) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-
-    <!-- Tu CSS personalizado -->
-    <link rel="stylesheet" href="/BESTUNE2/public/assets/css/styles.css">
+	<!-- Atlantis Lite CSS -->
+	<link rel="stylesheet" href="/BESTUNE2/public/assets/Atlantis-Lite-master/assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/BESTUNE2/public/assets/Atlantis-Lite-master/assets/css/atlantis.min.css">
+	<link rel="stylesheet" href="/BESTUNE2/public/assets/Atlantis-Lite-master/assets/css/fonts.min.css">
 </head>
-<body class="bg-gray-100 text-gray-800 flex flex-col min-h-screen">
+<body>
+<div class="wrapper">
 
-<!-- NAVBAR -->
-<nav class="bg-gray-900 text-white shadow">
-  <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-16 items-center">
-      <!-- Logo -->
-      <a href="/BESTUNE2/app/views/panelAdmin/index.php" class="flex items-center">
-        <img src="<?= SITE_LOGO ?>" alt="<?= SITE_NAME ?>" class="h-10">
-      </a>
+	<!-- HEADER Atlantis -->
+	<div class="main-header">
+		<!-- Logo Header -->
+		<div class="logo-header" data-background-color="blue">
+			<a href="/BESTUNE2/app/views/panelAdmin/index.php" class="logo">
+				<img src="<?= SITE_LOGO ?>" alt="<?= SITE_NAME ?>" class="navbar-brand" style="height: 40px;">
+			</a>
+			<button class="navbar-toggler sidenav-toggler ml-auto" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"><i class="icon-menu"></i></span>
+			</button>
+			<button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
+		</div>
 
-      <!-- Menu -->
-      <div class="flex-1 hidden md:flex justify-center items-center space-x-6">
-        <a href="/BESTUNE2/app/views/panelAdmin/usuarios/listar.php" class="hover:text-yellow-400 transition">Usuarios</a>
-        <a href="/BESTUNE2/app/views/panelAdmin/promociones/listar.php" class="hover:text-yellow-400 transition">Promociones</a>
-        <a href="/BESTUNE2/app/views/panelAdmin/planes/listar.php" class="hover:text-yellow-400 transition">Planes</a>
-        <a href="/BESTUNE2/app/views/panelAdmin/eventos/listar.php" class="hover:text-yellow-400 transition">Eventos</a>
-        <a href="/BESTUNE2/app/views/panelAdmin/instagram/listar.php" class="hover:text-yellow-400 transition">Instagram</a>
-      </div>
+		<!-- Navbar sin buscador -->
+<nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+	<div class="container-fluid">
 
-      <!-- Icono logout -->
-      <div class="ml-auto flex items-center space-x-2">
-        <a href="/BESTUNE2/app/views/panelAdmin/logout.php" title="Cerrar sesión" class="text-white hover:text-red-400 transition">
-          <i class="bi bi-box-arrow-right text-2xl"></i>
-        </a>
-      </div>
-    </div>
-  </div>
+		<!-- ENLACES DE NAVEGACIÓN (centro izquierda) -->
+		<ul class="navbar-nav d-flex flex-row">
+			<li class="nav-item">
+				<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/usuarios/listar.php">
+					<i class="fas fa-users"></i> Usuarios
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/promociones/listar.php">
+					<i class="fas fa-tags"></i> Promociones
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/planes/listar.php">
+					<i class="fas fa-cube"></i> Planes
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/eventos/listar.php">
+					<i class="fas fa-calendar"></i> Eventos
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/instagram/listar.php">
+					<i class="fab fa-instagram"></i> Instagram
+				</a>
+			</li>
+		</ul>
+
+		<!-- ÍCONOS DERECHA -->
+		<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+			<li class="nav-item dropdown hidden-caret">
+				<a class="nav-link dropdown-toggle" href="#" id="notifDropdown" data-toggle="dropdown">
+					<i class="fa fa-bell"></i>
+					<span class="notification">0</span>
+				</a>
+				<ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
+					<li><div class="dropdown-title">No hay notificaciones</div></li>
+				</ul>
+			</li>
+			<li class="nav-item dropdown hidden-caret">
+				<a class="nav-link dropdown-toggle" href="#" id="quickActionsDropdown" data-toggle="dropdown">
+					<i class="fas fa-layer-group"></i>
+				</a>
+				<!-- ... menú rápido aquí si quieres ... -->
+			</li>
+			<li class="nav-item dropdown hidden-caret">
+				<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#">
+					<div class="avatar-sm">
+						<img src="/BESTUNE2/public/assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+					</div>
+				</a>
+				<ul class="dropdown-menu dropdown-user animated fadeIn">
+					<li>
+						<div class="user-box">
+							<div class="avatar-lg"><img src="/BESTUNE2/public/assets/img/profile.jpg" alt="image profile" class="avatar-img rounded"></div>
+							<div class="u-text">
+								<h4>Admin</h4>
+								<p class="text-muted">admin@example.com</p>
+								<a href="#" class="btn btn-xs btn-secondary btn-sm">Perfil</a>
+							</div>
+						</div>
+					</li>
+					<li><div class="dropdown-divider"></div></li>
+					<li><a class="dropdown-item" href="/BESTUNE2/app/views/panelAdmin/logout.php">Cerrar sesión</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
 </nav>
-
-<!-- CONTENIDO PRINCIPAL -->
-<main class="flex-grow max-w-screen-xl mx-auto px-4 py-6 w-full">
-    <?php if (isset($_SESSION['message'])): ?>
-        <div class="mb-4 p-4 rounded text-white 
-            <?= $_SESSION['message_type'] === 'success' ? 'bg-green-500' : '' ?>
-            <?= $_SESSION['message_type'] === 'danger' ? 'bg-red-500' : '' ?>
-            <?= $_SESSION['message_type'] === 'warning' ? 'bg-yellow-500 text-black' : '' ?>
-        ">
-            <div class="flex justify-between items-center">
-                <span><?= $_SESSION['message'] ?></span>
-                <button onclick="this.parentElement.parentElement.remove();" class="text-white hover:text-gray-200 font-bold text-xl leading-none">&times;</button>
-            </div>
-        </div>
-        <?php unset($_SESSION['message'], $_SESSION['message_type']); ?>
-    <?php endif; ?>
