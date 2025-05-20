@@ -28,76 +28,60 @@
 		</div>
 
 		<!-- Navbar sin buscador -->
-<nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
-	<div class="container-fluid">
+		<nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+			<div class="container-fluid">
 
-		<!-- ENLACES DE NAVEGACIÓN (centro izquierda) -->
-		<ul class="navbar-nav d-flex flex-row">
-			<li class="nav-item">
-				<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/usuarios/listar.php">
-					<i class="fas fa-users"></i> Usuarios
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/promociones/listar.php">
-					<i class="fas fa-tags"></i> Promociones
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/planes/listar.php">
-					<i class="fas fa-cube"></i> Planes
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/eventos/listar.php">
-					<i class="fas fa-calendar"></i> Eventos
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/instagram/listar.php">
-					<i class="fab fa-instagram"></i> Instagram
-				</a>
-			</li>
-		</ul>
-
-		<!-- ÍCONOS DERECHA -->
-		<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-			<li class="nav-item dropdown hidden-caret">
-				<a class="nav-link dropdown-toggle" href="#" id="notifDropdown" data-toggle="dropdown">
-					<i class="fa fa-bell"></i>
-					<span class="notification">0</span>
-				</a>
-				<ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
-					<li><div class="dropdown-title">No hay notificaciones</div></li>
-				</ul>
-			</li>
-			<li class="nav-item dropdown hidden-caret">
-				<a class="nav-link dropdown-toggle" href="#" id="quickActionsDropdown" data-toggle="dropdown">
-					<i class="fas fa-layer-group"></i>
-				</a>
-				<!-- ... menú rápido aquí si quieres ... -->
-			</li>
-			<li class="nav-item dropdown hidden-caret">
-				<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#">
-					<div class="avatar-sm">
-						<img src="/BESTUNE2/public/assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
-					</div>
-				</a>
-				<ul class="dropdown-menu dropdown-user animated fadeIn">
-					<li>
-						<div class="user-box">
-							<div class="avatar-lg"><img src="/BESTUNE2/public/assets/img/profile.jpg" alt="image profile" class="avatar-img rounded"></div>
-							<div class="u-text">
-								<h4>Admin</h4>
-								<p class="text-muted">admin@example.com</p>
-								<a href="#" class="btn btn-xs btn-secondary btn-sm">Perfil</a>
-							</div>
-						</div>
+				<!-- ENLACES DE NAVEGACIÓN (centro izquierda) -->
+				<ul class="navbar-nav d-flex flex-row">
+					<li class="nav-item">
+						<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/usuarios/listar.php">
+							<i class="fas fa-users"></i> Usuarios
+						</a>
 					</li>
-					<li><div class="dropdown-divider"></div></li>
-					<li><a class="dropdown-item" href="/BESTUNE2/app/views/panelAdmin/logout.php">Cerrar sesión</a></li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/promociones/listar.php">
+							<i class="fas fa-tags"></i> Promociones
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/planes/listar.php">
+							<i class="fas fa-cube"></i> Planes
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/eventos/listar.php">
+							<i class="fas fa-calendar"></i> Eventos
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/instagram/listar.php">
+							<i class="fab fa-instagram"></i> Instagram
+						</a>
+					</li>
 				</ul>
-			</li>
-		</ul>
+
+				<!-- ÍCONOS DERECHA -->
+				<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+					<li class="nav-item dropdown hidden-caret">
+						<a class="nav-link dropdown-toggle" href="#" id="notifDropdown" data-toggle="dropdown">
+							<i class="fa fa-bell"></i>
+							<span class="notification">0</span>
+						</a>
+						<ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
+							<li><div class="dropdown-title">No hay notificaciones</div></li>
+						</ul>
+					</li>
+					<li class="nav-item dropdown hidden-caret">
+						<a class="nav-link dropdown-toggle" href="#" id="quickActionsDropdown" data-toggle="dropdown">
+							<i class="fas fa-layer-group"></i>
+						</a>
+					</li>
+					<li class="nav-item hidden-caret">
+						<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/logout.php" title="Cerrar sesión">
+							<i class="fas fa-sign-out-alt"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
 	</div>
-</nav>

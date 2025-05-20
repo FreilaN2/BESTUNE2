@@ -10,52 +10,99 @@ $sql = "SELECT id_plan, nombre_plan, imagen_principal FROM planes ORDER BY nombr
 $planes = $db->query($sql)->fetchAll();
 ?>
 
-<div class="flex justify-between items-center mb-6">
-    <h1 class="text-3xl font-bold text-gray-900 border-b-2 border-blue-500 inline-block pb-1">
-        Gestión de Planes
-    </h1>
-    <a href="crear.php" class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow transition">
-        <i class="bi bi-plus-circle text-lg"></i>
-        <span class="font-medium">Nuevo Plan</span>
-    </a>
-</div>
+<div class="page-inner">
+    <div class="page-header">
+        <h4 class="page-title">Gestión de Planes</h4>
+        <a href="crear.php" class="btn btn-success btn-round ml-auto">
+            <i class="fa fa-plus"></i> Nuevo Plan
+        </a>
+    </div>
 
-<div class="overflow-x-auto rounded-lg shadow border border-gray-200 bg-white">
-    <table class="w-full table-auto border-collapse">
-        <thead class="bg-gray-100 text-sm text-gray-700 uppercase">
-            <tr>
-                <th class="p-3 text-left">ID</th>
-                <th class="p-3 text-left">Nombre</th>
-                <th class="p-3 text-left">Imagen</th>
-                <th class="p-3 text-center">Acciones</th>
-            </tr>
-        </thead>
-        <tbody class="text-gray-800 text-sm">
-            <?php foreach ($planes as $plan): ?>
-                <tr class="hover:bg-gray-50">
-                    <td class="p-3"><?= $plan['id_plan'] ?></td>
-                    <td class="p-3"><?= htmlspecialchars($plan['nombre_plan']) ?></td>
-                    <td class="p-3">
-                        <?php if (!empty($plan['imagen_principal'])): ?>
-                            <img src="/bestune2/public/<?= htmlspecialchars($plan['imagen_principal']) ?>" alt="Imagen del plan" class="h-14 rounded-md object-contain shadow-sm">
-                        <?php else: ?>
-                            <span class="text-gray-400 italic">Sin imagen</span>
+    <?php if (isset($_SESSION['message'])): ?>
+    <script>
+        $(document).ready(function () {
+            $.notify({
+                icon: 'flaticon-info',
+                title: 'Mensaje',
+                message: '<?= $_SESSION['message'] ?>',
+            }, {
+                type: '<?= $_SESSION['message_type'] ?>',
+                placement: {
+                    from: "top",
+                    align: "right"
+                },
+                delay: 3000,
+            });
+        });
+    </script>
+    <?php unset($_SESSION['message'], $_SESSION['message_type']); ?>
+    <?php endif; ?>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="datatable-planes" class="display table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Imagen</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($planes as $plan): ?>
+                        <tr>
+                            <td><?= $plan['id_plan'] ?></td>
+                            <td><?= htmlspecialchars($plan['nombre_plan']) ?></td>
+                            <td>
+                                <?php if (!empty($plan['imagen_principal'])): ?>
+                                    <img src="/BESTUNE2/public/<?= htmlspecialchars($plan['imagen_principal']) ?>" 
+                                         alt="Imagen del plan" class="img-fluid rounded" style="max-height: 60px;">
+                                <?php else: ?>
+                                    <span class="text-muted">Sin imagen</span>
+                                <?php endif; ?>
+                            </td>
+                            <td class="text-center">
+                                <a href="editar.php?id=<?= $plan['id_plan'] ?>" class="btn btn-sm btn-info" title="Editar">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a href="../Includes/actions/planes/eliminar.php?id=<?= $plan['id_plan'] ?>" 
+                                   onclick="return confirm('¿Estás seguro de eliminar este plan?')" 
+                                   class="btn btn-sm btn-danger" title="Eliminar">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                        <?php if (empty($planes)): ?>
+                            <tr><td colspan="4" class="text-center text-muted">No hay planes registrados.</td></tr>
                         <?php endif; ?>
-                    </td>
-                    <td class="p-3 flex justify-center gap-2">
-                        <a href="editar.php?id=<?= $plan['id_plan'] ?>" class="text-blue-600 hover:text-blue-800" title="Editar">
-                            <i class="bi bi-pencil-square text-lg"></i>
-                        </a>
-                        <a href="../Includes/actions/planes/eliminar.php?id=<?= $plan['id_plan'] ?>" 
-                           onclick="return confirm('¿Estás seguro de eliminar este plan?')" 
-                           class="text-red-600 hover:text-red-800" title="Eliminar">
-                            <i class="bi bi-trash text-lg"></i>
-                        </a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+</main>
+</div> <!-- Cierra wrapper -->
+
+<!-- Librerías necesarias -->
+<link rel="stylesheet" href="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/css/datatables.min.css">
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/plugin/datatables/datatables.min.js"></script>
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+<!-- Inicialización de DataTables -->
+<script>
+    $(document).ready(function () {
+        $('#datatable-planes').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+            },
+            "pageLength": 10
+        });
+    });
+</script>
 
 <?php require_once '../includes/footer.php'; ?>

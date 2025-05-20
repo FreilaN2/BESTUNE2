@@ -48,8 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $upload_dir = realpath(__DIR__ . '/../../../../') . '/public/assets/img/eventos/';
             if (!is_dir($upload_dir)) mkdir($upload_dir, 0755, true);
 
-            $ruta_antigua = realpath(__DIR__ . '/../../../../') . '/public/' . ltrim($imagen_actual, '/');
-            if (!empty($imagen_actual) && file_exists($ruta_antigua)) unlink($ruta_antigua);
+            // Eliminar imagen anterior si existe
+            if (!empty($imagen_actual)) {
+                $ruta_antigua = realpath(__DIR__ . '/../../../../') . '/public/' . ltrim($imagen_actual, '/');
+                if (file_exists($ruta_antigua)) unlink($ruta_antigua);
+            }
 
             $imagen_nombre = 'evento_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
             $destino = $upload_dir . $imagen_nombre;
@@ -79,66 +82,76 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<div class="max-w-3xl mx-auto bg-white border border-blue-100 p-8 rounded-xl shadow-lg mt-10">
-    <div class="flex items-center gap-3 mb-6 border-b pb-3 border-blue-500">
-        <i class="bi bi-pencil-square text-3xl text-blue-600"></i>
-        <h2 class="text-2xl font-bold text-blue-800">Editar Evento</h2>
+<div class="page-inner">
+    <div class="page-header">
+        <h4 class="page-title">Editar Evento</h4>
+        <a href="listar.php" class="btn btn-secondary btn-round ml-auto">
+            <i class="fa fa-arrow-left"></i> Volver
+        </a>
     </div>
 
-    <?php if (!empty($errors)): ?>
-        <div class="mb-4 bg-red-100 text-red-800 px-4 py-3 rounded">
-            <ul class="list-disc pl-5 space-y-1">
-                <?php foreach ($errors as $error): ?>
-                    <li><?= $error ?></li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    <?php endif; ?>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <?php if (!empty($errors)): ?>
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        <?php foreach ($errors as $error): ?>
+                            <li><?= $error ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
 
-    <form method="POST" enctype="multipart/form-data" class="space-y-6">
-        <div class="grid md:grid-cols-2 gap-6">
-            <div>
-                <label for="titulo" class="block text-sm font-medium text-gray-700">Título *</label>
-                <input type="text" id="titulo" name="titulo" required
-                       class="mt-1 w-full border border-gray-300 bg-gray-50 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                       value="<?= htmlspecialchars($evento['titulo']) ?>">
+            <div class="card shadow-lg border rounded">
+                <div class="card-header">
+                    <div class="card-title"><i class="fa fa-calendar-edit"></i> Datos del Evento</div>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="titulo">Título *</label>
+                            <input type="text" id="titulo" name="titulo" class="form-control" required
+                                   value="<?= htmlspecialchars($evento['titulo']) ?>">
+                        </div>
 
-                <label for="descripcion" class="block mt-4 text-sm font-medium text-gray-700">Descripción</label>
-                <textarea id="descripcion" name="descripcion" rows="4"
-                          class="mt-1 w-full border border-gray-300 bg-gray-50 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"><?= htmlspecialchars($evento['descripcion']) ?></textarea>
+                        <div class="form-group">
+                            <label for="descripcion">Descripción</label>
+                            <textarea id="descripcion" name="descripcion" rows="4" class="form-control"><?= htmlspecialchars($evento['descripcion']) ?></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fecha">Fecha y Hora *</label>
+                            <input type="datetime-local" id="fecha" name="fecha" class="form-control" required
+                                   value="<?= date('Y-m-d\TH:i', strtotime($evento['fecha'])) ?>">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="imagen">Imagen del Evento</label>
+                            <input type="file" id="imagen" name="imagen" accept="image/*" class="form-control-file">
+                            <?php if (!empty($evento['imagen'])): ?>
+                                <div class="mt-2">
+                                    <img src="/bestune2/public/<?= htmlspecialchars($evento['imagen']) ?>"
+                                         alt="Imagen actual" class="img-fluid rounded border" style="max-height: 100px;">
+                                </div>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="card-action text-right mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-save"></i> Guardar
+                            </button>
+                            <a href="listar.php" class="btn btn-secondary">
+                                <i class="fa fa-times"></i> Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
             </div>
-
-            <div>
-                <label for="fecha" class="block text-sm font-medium text-gray-700">Fecha y Hora *</label>
-                <input type="datetime-local" id="fecha" name="fecha" required
-                       class="mt-1 w-full border border-gray-300 bg-white rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                       value="<?= date('Y-m-d\TH:i', strtotime($evento['fecha'])) ?>">
-
-                <label for="imagen" class="block mt-4 text-sm font-medium text-gray-700">Imagen del Evento</label>
-                <input type="file" id="imagen" name="imagen" accept="image/*"
-                       class="mt-1 w-full border border-gray-300 bg-white rounded-md shadow-sm">
-                <?php if (!empty($evento['imagen'])): ?>
-                    <div class="mt-2">
-                        <img src="/bestune2/public/<?= htmlspecialchars($evento['imagen']) ?>"
-                             alt="Imagen actual" class="h-24 object-contain rounded border">
-                    </div>
-                <?php endif; ?>
-            </div>
         </div>
-
-        <div class="flex justify-end gap-4 pt-6 border-t">
-            <button type="submit"
-                    class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded-md shadow-sm transition">
-                <i class="bi bi-check-circle-fill text-base"></i>
-                Guardar
-            </button>
-            <a href="listar.php"
-               class="inline-flex items-center gap-2 border border-gray-300 text-gray-700 hover:bg-gray-100 font-medium px-6 py-2 rounded-md shadow-sm transition">
-                <i class="bi bi-x-lg text-base"></i>
-                Cancelar
-            </a>
-        </div>
-    </form>
+    </div>
 </div>
+
+</main>
+</div> <!-- Cierra wrapper -->
 
 <?php require_once '../includes/footer.php'; ?>

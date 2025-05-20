@@ -3,9 +3,6 @@ require_once '../includes/config.php';
 require_once '../includes/auth.php';
 checkAuth();
 
-$page_title = 'Editar Post de Instagram';
-require_once '../includes/header.php';
-
 if (!isset($_GET['id'])) {
     $_SESSION['message'] = "ID de post no proporcionado";
     $_SESSION['message_type'] = "danger";
@@ -14,6 +11,8 @@ if (!isset($_GET['id'])) {
 }
 
 $id = (int)$_GET['id'];
+$page_title = 'Editar Post de Instagram';
+require_once '../includes/header.php';
 
 $stmt = $db->prepare("SELECT * FROM instagram_posts WHERE id_post = ?");
 $stmt->execute([$id]);
@@ -45,21 +44,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $ext = strtolower(pathinfo($_FILES['media']['name'], PATHINFO_EXTENSION));
 
         if (!in_array($ext, $allowed)) {
-            $errors[] = "Formato de archivo no permitido. Use JPG, PNG, GIF, MP4 o WEBM.";
+            $errors[] = "Formato de archivo no permitido.";
         } elseif ($_FILES['media']['size'] > 10 * 1024 * 1024) {
-            $errors[] = "El archivo es demasiado grande. Máximo 10MB permitidos.";
+            $errors[] = "El archivo es demasiado grande. Máx. 10MB.";
         } else {
             $upload_dir = realpath(__DIR__ . '/../../../../') . '/public/assets/img/instagram/';
-            if (!is_dir($upload_dir)) {
-                mkdir($upload_dir, 0755, true);
-            }
+            if (!is_dir($upload_dir)) mkdir($upload_dir, 0755, true);
 
-            if (!empty($media_actual)) {
-                $archivo_anterior = realpath(__DIR__ . '/../../../../') . '/public/' . ltrim($media_actual, '/');
-                if (file_exists($archivo_anterior)) {
-                    unlink($archivo_anterior);
-                }
-            }
+            $archivo_anterior = realpath(__DIR__ . '/../../../../') . '/public/' . ltrim($media_actual, '/');
+            if (!empty($media_actual) && file_exists($archivo_anterior)) unlink($archivo_anterior);
 
             $media_nombre = 'instagram_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
             $destino = $upload_dir . $media_nombre;
@@ -74,10 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errors)) {
         try {
-            $stmt = $db->prepare("UPDATE instagram_posts 
-                SET descripcion = ?, url_post = ?, visible = ?, url_media = ?, 
-                    id_usuario_actualizador = ?, fecha_actualizacion = NOW() 
-                WHERE id_post = ?");
+            $stmt = $db->prepare("UPDATE instagram_posts SET descripcion = ?, url_post = ?, visible = ?, url_media = ?, id_usuario_actualizador = ?, fecha_actualizacion = NOW() WHERE id_post = ?");
             $stmt->execute([$descripcion, $url, $visible, $media_url, $_SESSION['user_id'], $id]);
 
             $_SESSION['message'] = "Post actualizado exitosamente";
@@ -90,85 +80,89 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$descripcion_value = $_POST['descripcion'] ?? $post['descripcion'];
-$url_value = $_POST['url_post'] ?? $post['url_post'];
 ?>
 
-<div class="max-w-3xl mx-auto bg-white border border-blue-100 p-8 rounded-xl shadow-lg mt-10">
-    <div class="flex items-center gap-3 mb-6 border-b pb-3 border-blue-500">
-        <i class="bi bi-pencil-square text-3xl text-blue-600"></i>
-        <h2 class="text-2xl font-bold text-blue-800">Editar Post de Instagram</h2>
+<div class="page-inner">
+    <div class="page-header">
+        <h4 class="page-title">Editar Post de Instagram</h4>
+        <a href="listar.php" class="btn btn-secondary btn-round ml-auto">
+            <i class="fa fa-arrow-left"></i> Volver
+        </a>
     </div>
 
-    <?php if (!empty($errors)): ?>
-        <div class="mb-4 bg-red-100 text-red-800 px-4 py-3 rounded">
-            <ul class="list-disc pl-5 space-y-1">
-                <?php foreach ($errors as $error): ?>
-                    <li><?= $error ?></li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    <?php endif; ?>
-
-    <form method="POST" enctype="multipart/form-data" class="space-y-6">
-        <div>
-            <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción *</label>
-            <textarea id="descripcion" name="descripcion" required rows="3"
-                class="mt-1 w-full border border-gray-300 bg-gray-50 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"><?= htmlspecialchars($descripcion_value) ?></textarea>
-        </div>
-
-        <div>
-            <label for="url_post" class="block text-sm font-medium text-gray-700">URL *</label>
-            <input type="url" id="url_post" name="url_post" required
-                class="mt-1 w-full border border-gray-300 bg-gray-50 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value="<?= htmlspecialchars($url_value) ?>">
-        </div>
-
-        <div>
-            <label for="media" class="block text-sm font-medium text-gray-700">Media</label>
-            <input type="file" id="media" name="media" accept="image/*,video/*"
-                class="mt-1 w-full border border-gray-300 bg-white rounded-md shadow-sm">
-            <small class="text-gray-500">Formatos: JPG, PNG, GIF, MP4, WEBM. Máx. 10MB</small>
-
-            <?php if (!empty($post['url_media'])): ?>
-                <div class="mt-2">
-                    <?php if (preg_match('/\.(mp4|webm)$/i', $post['url_media'])): ?>
-                        <video src="/BESTUNE2/public/<?= htmlspecialchars($post['url_media']) ?>" controls class="rounded shadow h-48"></video>
-                    <?php else: ?>
-                        <img src="/BESTUNE2/public/<?= htmlspecialchars($post['url_media']) ?>" alt="Media actual" class="h-48 rounded shadow object-contain">
-                    <?php endif; ?>
-                    <p class="text-gray-500 text-sm mt-1">Media actual</p>
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <?php if (!empty($errors)): ?>
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        <?php foreach ($errors as $error): ?>
+                            <li><?= $error ?></li>
+                        <?php endforeach; ?>
+                    </ul>
                 </div>
             <?php endif; ?>
-        </div>
 
-        <div>
-            <h3 class="text-lg font-semibold text-gray-700 mb-2">Visibilidad</h3>
-            <label class="flex items-center cursor-pointer">
-                <div class="relative">
-                    <input type="checkbox" id="visible" name="visible"
-                        class="sr-only peer"
-                        <?= $post['visible'] ? 'checked' : '' ?>>
-                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:bg-green-500 transition-all"></div>
-                    <div class="absolute top-0.5 left-0.5 bg-white w-5 h-5 rounded-full transition-all peer-checked:translate-x-full"></div>
+            <div class="card shadow-lg border rounded">
+                <div class="card-header">
+                    <div class="card-title"><i class="fab fa-instagram"></i> Datos del Post</div>
                 </div>
-                <span class="ml-3 text-sm text-gray-700">Visible en el sitio</span>
-            </label>
-        </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="descripcion">Descripción *</label>
+                                    <textarea name="descripcion" id="descripcion" class="form-control" rows="4" required><?= htmlspecialchars($_POST['descripcion'] ?? $post['descripcion']) ?></textarea>
+                                </div>
 
-        <div class="flex justify-end gap-4 pt-4 border-t">
-            <button type="submit"
-                class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded-md shadow-sm transition">
-                <i class="bi bi-check-circle-fill text-base"></i>
-                Guardar
-            </button>
-            <a href="listar.php"
-               class="inline-flex items-center gap-2 border border-gray-300 text-gray-700 hover:bg-gray-100 font-medium px-6 py-2 rounded-md shadow-sm transition">
-                <i class="bi bi-x-lg text-base"></i>
-                Cancelar
-            </a>
+                                <div class="form-group">
+                                    <label for="url_post">URL *</label>
+                                    <input type="url" name="url_post" id="url_post" class="form-control" required value="<?= htmlspecialchars($_POST['url_post'] ?? $post['url_post']) ?>">
+                                </div>
+
+                                <div class="form-check mt-3">
+                                    <label>
+                                        <input type="checkbox" name="visible" <?= ($post['visible'] ?? 0) ? 'checked' : '' ?>>
+                                        <span class="form-check-sign">Visible en el sitio</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="media">Media (imagen o video)</label>
+                                    <input type="file" name="media" id="media" class="form-control-file" accept="image/*,video/*">
+                                    <small class="form-text text-muted">Formatos: JPG, PNG, GIF, MP4, WEBM. Máx. 10MB</small>
+
+                                    <?php if (!empty($post['url_media'])): ?>
+                                        <div class="mt-3">
+                                            <?php if (preg_match('/\.(mp4|webm)$/i', $post['url_media'])): ?>
+                                                <video src="/BESTUNE2/public/<?= htmlspecialchars($post['url_media']) ?>" controls class="rounded shadow" style="max-height: 180px;"></video>
+                                            <?php else: ?>
+                                                <img src="/BESTUNE2/public/<?= htmlspecialchars($post['url_media']) ?>" class="rounded border" style="max-height: 180px;" alt="Media actual">
+                                            <?php endif; ?>
+                                            <p class="text-muted mt-1">Media actual</p>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-action text-right mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-save"></i> Guardar Cambios
+                            </button>
+                            <a href="listar.php" class="btn btn-secondary">
+                                <i class="fa fa-times"></i> Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    </form>
+    </div>
 </div>
 
+</main>
+</div>
 <?php require_once '../includes/footer.php'; ?>

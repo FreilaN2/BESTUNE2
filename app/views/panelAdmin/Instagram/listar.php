@@ -10,79 +10,106 @@ $sql = "SELECT id_post, descripcion, url_post, url_media, fecha_post, visible FR
 $posts = $db->query($sql)->fetchAll();
 ?>
 
-<div class="flex justify-between items-center mb-6">
-    <h1 class="text-3xl font-bold text-gray-900 border-b-2 border-blue-500 inline-block pb-1">
-        Gestión de Instagram
-    </h1>
-    <a href="crear.php" class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow transition">
-        <i class="bi bi-plus-circle text-lg"></i>
-        <span class="font-medium">Nuevo Post</span>
-    </a>
-</div>
-
-<?php if (isset($_SESSION['message'])): ?>
-    <div class="flex items-start gap-3 mb-4 p-4 rounded-lg
-        <?= $_SESSION['message_type'] === 'success' ? 'bg-green-100 text-green-800' : '' ?>
-        <?= $_SESSION['message_type'] === 'danger' ? 'bg-red-100 text-red-800' : '' ?>
-        <?= $_SESSION['message_type'] === 'warning' ? 'bg-yellow-100 text-yellow-800' : '' ?>">
-        <svg class="w-6 h-6 mt-1" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M18 10c0 4.418-3.582 8-8 8s-8-3.582-8-8 3.582-8 8-8 8 3.582 8 8zM9 9v4h2V9H9zm0-4v2h2V5H9z" clip-rule="evenodd"/>
-        </svg>
-        <div><?= $_SESSION['message'] ?></div>
+<div class="page-inner">
+    <div class="page-header">
+        <h4 class="page-title">Gestión de Instagram</h4>
+        <a href="crear.php" class="btn btn-success btn-round ml-auto">
+            <i class="fa fa-plus"></i> Nuevo Post
+        </a>
     </div>
-    <?php unset($_SESSION['message'], $_SESSION['message_type']); ?>
-<?php endif; ?>
 
-<div class="overflow-x-auto rounded-lg shadow border border-gray-200 bg-white">
-    <table class="w-full table-auto border-collapse">
-        <thead class="bg-gray-100 text-sm text-gray-700 uppercase">
-            <tr>
-                <th class="p-3 text-left">ID</th>
-                <th class="p-3 text-left">Descripción</th>
-                <th class="p-3 text-left">Media</th>
-                <th class="p-3 text-left">Fecha</th>
-                <th class="p-3 text-left">Estado</th>
-                <th class="p-3 text-center">Acciones</th>
-            </tr>
-        </thead>
-        <tbody class="text-gray-800 text-sm">
-            <?php foreach ($posts as $post): ?>
-                <tr class="hover:bg-gray-50">
-                    <td class="p-3"><?= $post['id_post'] ?></td>
-                    <td class="p-3"><?= htmlspecialchars($post['descripcion']) ?></td>
-                    <td class="p-3">
-                        <?php if (!empty($post['url_media'])): ?>
-                            <?php if (preg_match('/\.(mp4|webm)$/i', $post['url_media'])): ?>
-                                <video src="/BESTUNE2/public/<?= htmlspecialchars($post['url_media']) ?>" class="h-14 rounded" muted autoplay loop></video>
-                            <?php else: ?>
-                                <img src="/BESTUNE2/public/<?= htmlspecialchars($post['url_media']) ?>" alt="Media del post" class="h-14 rounded object-cover">
-                            <?php endif; ?>
-                        <?php else: ?>
-                            <span class="text-gray-400 italic">Sin media</span>
+    <?php if (isset($_SESSION['message'])): ?>
+        <script>
+            $(document).ready(function () {
+                $.notify({
+                    icon: 'flaticon-info',
+                    title: 'Mensaje',
+                    message: '<?= $_SESSION['message'] ?>',
+                },{
+                    type: '<?= $_SESSION['message_type'] ?>',
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    },
+                    delay: 3000,
+                });
+            });
+        </script>
+        <?php unset($_SESSION['message'], $_SESSION['message_type']); ?>
+    <?php endif; ?>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="datatable-instagram" class="display table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Descripción</th>
+                            <th>Media</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($posts as $post): ?>
+                        <tr>
+                            <td><?= $post['id_post'] ?></td>
+                            <td><?= htmlspecialchars($post['descripcion']) ?></td>
+                            <td>
+                                <?php if (!empty($post['url_media'])): ?>
+                                    <?php if (preg_match('/\.(mp4|webm)$/i', $post['url_media'])): ?>
+                                        <video src="/BESTUNE2/public/<?= htmlspecialchars($post['url_media']) ?>" class="img-fluid rounded" style="max-height: 60px;" muted autoplay loop></video>
+                                    <?php else: ?>
+                                        <img src="/BESTUNE2/public/<?= htmlspecialchars($post['url_media']) ?>" alt="Media del post" class="img-fluid rounded" style="max-height: 60px;">
+                                    <?php endif; ?>
+                                <?php else: ?>
+                                    <span class="text-muted">Sin media</span>
+                                <?php endif; ?>
+                            </td>
+                            <td><?= date('d/m/Y', strtotime($post['fecha_post'])) ?></td>
+                            <td>
+                                <span class="badge badge-<?= $post['visible'] ? 'success' : 'secondary' ?>">
+                                    <i class="fa <?= $post['visible'] ? 'fa-check-circle' : 'fa-eye-slash' ?>"></i>
+                                    <?= $post['visible'] ? 'Visible' : 'Oculto' ?>
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <a href="editar.php?id=<?= $post['id_post'] ?>" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                                <a href="../includes/actions/instagram/eliminar.php?id=<?= $post['id_post'] ?>" onclick="return confirm('¿Estás seguro de eliminar este post?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                        <?php if (empty($posts)): ?>
+                            <tr><td colspan="6" class="text-center text-muted">No hay publicaciones.</td></tr>
                         <?php endif; ?>
-                    </td>
-                    <td class="p-3"><?= date('d/m/Y', strtotime($post['fecha_post'])) ?></td>
-                    <td class="p-3">
-                        <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium
-                            <?= $post['visible'] ? 'bg-green-100 text-green-800' : 'bg-gray-200 text-gray-700' ?>">
-                            <i class="bi <?= $post['visible'] ? 'bi-check-circle' : 'bi-eye-slash' ?>"></i>
-                            <?= $post['visible'] ? 'Visible' : 'Oculto' ?>
-                        </span>
-                    </td>
-                    <td class="p-3 flex justify-center gap-2">
-                        <a href="editar.php?id=<?= $post['id_post'] ?>" class="text-blue-600 hover:text-blue-800">
-                            <i class="bi bi-pencil-square text-lg"></i>
-                        </a>
-                        <a href="../includes/actions/instagram/eliminar.php?id=<?= $post['id_post'] ?>"
-                           onclick="return confirm('¿Estás seguro de eliminar este post?')"
-                           class="text-red-600 hover:text-red-800">
-                            <i class="bi bi-trash text-lg"></i>
-                        </a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+                    </tbody>
+                </table>
+            </div>
+        </div> 
+    </div>
 </div>
+
+</main>
+</div> <!-- Cierra wrapper -->
+
+<!-- Librerías necesarias -->
+<link rel="stylesheet" href="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/css/datatables.min.css">
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/plugin/datatables/datatables.min.js"></script>
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+<!-- Inicialización de DataTables -->
+<script>
+    $(document).ready(function() {
+        $('#datatable-instagram').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+            },
+            "pageLength": 10
+        });
+    });
+</script>
 
 <?php require_once '../includes/footer.php'; ?>

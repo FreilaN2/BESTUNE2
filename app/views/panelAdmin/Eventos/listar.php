@@ -13,59 +13,102 @@ $sql = "SELECT e.*, u.nombre as creador
 $eventos = $db->query($sql)->fetchAll();
 ?>
 
-<div class="flex justify-between items-center mb-6">
-    <h1 class="text-3xl font-bold text-gray-900 border-b-2 border-blue-500 inline-block pb-1">
-        Gestión de Eventos
-    </h1>
-    <a href="crear.php" class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow transition">
-        <i class="bi bi-plus-circle text-lg"></i>
-        <span class="font-medium">Nuevo Evento</span>
-    </a>
-</div>
+<div class="page-inner">
+    <div class="page-header">
+        <h4 class="page-title">Gestión de Eventos</h4>
+        <a href="crear.php" class="btn btn-success btn-round ml-auto">
+            <i class="fa fa-plus"></i> Nuevo Evento
+        </a>
+    </div>
 
-    <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm bg-white">
-        <table class="w-full table-auto text-sm text-left">
-            <thead class="bg-gray-100 text-gray-700 uppercase">
-                <tr>
-                    <th class="p-3">ID</th>
-                    <th class="p-3">Título</th>
-                    <th class="p-3">Fecha</th>
-                    <th class="p-3">Imagen</th>
-                    <th class="p-3">Creador</th>
-                    <th class="p-3 text-center">Acciones</th>
-                </tr>
-            </thead>
-            <tbody class="text-gray-800">
-                <?php foreach ($eventos as $evento): ?>
-                <tr class="hover:bg-gray-50 even:bg-gray-50">
-                    <td class="p-3"><?= $evento['id_evento'] ?></td>
-                    <td class="p-3"><?= htmlspecialchars($evento['titulo']) ?></td>
-                    <td class="p-3" title="<?= date('Y-m-d H:i:s', strtotime($evento['fecha'])) ?>">
-                        <?= date('d/m/Y H:i', strtotime($evento['fecha'])) ?>
-                    </td>
-                    <td class="p-3">
-                        <?php if (!empty($evento['imagen'])): ?>
-                        <img src="/bestune2/public/<?= htmlspecialchars($evento['imagen']) ?>" alt="Imagen" class="h-14 w-auto rounded-md object-cover shadow-sm">
-                        <?php else: ?>
-                        <span class="text-gray-400 italic">Sin imagen</span>
+    <?php if (isset($_SESSION['message'])): ?>
+        <script>
+            $(document).ready(function () {
+                $.notify({
+                    icon: 'flaticon-info',
+                    title: 'Mensaje',
+                    message: '<?= $_SESSION['message'] ?>',
+                },{
+                    type: '<?= $_SESSION['message_type'] ?>',
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    },
+                    delay: 3000,
+                });
+            });
+        </script>
+        <?php unset($_SESSION['message'], $_SESSION['message_type']); ?>
+    <?php endif; ?>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="datatable-eventos" class="display table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Título</th>
+                            <th>Fecha</th>
+                            <th>Imagen</th>
+                            <th>Creador</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($eventos as $evento): ?>
+                        <tr>
+                            <td><?= $evento['id_evento'] ?></td>
+                            <td><?= htmlspecialchars($evento['titulo']) ?></td>
+                            <td title="<?= date('Y-m-d H:i:s', strtotime($evento['fecha'])) ?>">
+                                <?= date('d/m/Y H:i', strtotime($evento['fecha'])) ?>
+                            </td>
+                            <td>
+                                <?php if (!empty($evento['imagen'])): ?>
+                                    <img src="/BESTUNE2/public/<?= htmlspecialchars($evento['imagen']) ?>"
+                                         alt="Imagen" class="img-fluid rounded" style="max-height: 60px;">
+                                <?php else: ?>
+                                    <span class="text-muted">Sin imagen</span>
+                                <?php endif; ?>
+                            </td>
+                            <td><?= htmlspecialchars($evento['creador'] ?? 'Sistema') ?></td>
+                            <td class="text-center">
+                                <a href="editar.php?id=<?= $evento['id_evento'] ?>" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                                <a href="../includes/actions/eventos/eliminar.php?id=<?= $evento['id_evento'] ?>"
+                                   onclick="return confirm('¿Estás seguro de eliminar este evento?')"
+                                   class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                        <?php if (empty($eventos)): ?>
+                            <tr><td colspan="6" class="text-center text-muted">No hay eventos disponibles.</td></tr>
                         <?php endif; ?>
-                    </td>
-                    <td class="p-3"><?= htmlspecialchars($evento['creador'] ?? 'Sistema') ?></td>
-                    <td class="p-3 text-center flex justify-center gap-2">
-                        <a href="editar.php?id=<?= $evento['id_evento'] ?>" class="text-blue-600 hover:text-blue-800" title="Editar">
-                            <i class="bi bi-pencil-square text-lg"></i>
-                        </a>
-                        <a href="../includes/actions/eventos/eliminar.php?id=<?= $evento['id_evento'] ?>"
-                           onclick="return confirm('¿Estás seguro de eliminar este evento?')"
-                           class="text-red-600 hover:text-red-800" title="Eliminar">
-                            <i class="bi bi-trash text-lg"></i>
-                        </a>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
+
+</main>
+</div> <!-- Cierra wrapper -->
+
+<!-- Librerías necesarias -->
+<link rel="stylesheet" href="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/css/datatables.min.css">
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/plugin/datatables/datatables.min.js"></script>
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+<!-- Inicialización de DataTables -->
+<script>
+    $(document).ready(function() {
+        $('#datatable-eventos').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+            },
+            "pageLength": 10
+        });
+    });
+</script>
 
 <?php require_once '../includes/footer.php'; ?>
