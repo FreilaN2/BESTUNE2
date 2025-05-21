@@ -5,6 +5,7 @@ define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_NAME', 'sistema_administrativo');
+define('BASE_URL', '/BESTUNE2/public/');
 
 // Conexión a la base de datos
 try {

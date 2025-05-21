@@ -100,7 +100,7 @@ $usuarios = $stmt->fetchAll();
 </div> <!-- Cierra wrapper -->
 
 <!-- Librerías necesarias -->
-<link rel="stylesheet" href="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/css/datatables.min.css">
+<link src="<?=BASE_URL ?>assets/Atlantis-Lite-master/assets/css/datatables.min.css">
 <script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/core/jquery.3.2.1.min.js"></script>
 <script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/plugin/datatables/datatables.min.js"></script>
 <script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
