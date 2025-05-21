@@ -164,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <label for="imagen">Imagen Promocional</label>
                                     <input type="file" name="imagen" id="imagen" class="form-control-file">
                                     <?php if (!empty($promocion['imagen_url'])): ?>
-                                        <img src="/BESTUNE2/public/<?= htmlspecialchars($promocion['imagen_url']) ?>" class="mt-2 rounded border" style="max-height: 100px;" alt="Imagen actual">
+                                        <img src="<?= BASE_URL ?><?= htmlspecialchars($promocion['imagen_url']) ?>" class="mt-2 rounded border" style="max-height: 100px;" alt="Imagen actual">
                                     <?php endif; ?>
                                 </div>
 

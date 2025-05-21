@@ -79,7 +79,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-
 ?>
 
 <div class="page-inner">
@@ -137,9 +136,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <?php if (!empty($post['url_media'])): ?>
                                         <div class="mt-3">
                                             <?php if (preg_match('/\.(mp4|webm)$/i', $post['url_media'])): ?>
-                                                <video src="/BESTUNE2/public/<?= htmlspecialchars($post['url_media']) ?>" controls class="rounded shadow" style="max-height: 180px;"></video>
+                                                <video src="<?= BASE_URL . htmlspecialchars($post['url_media']) ?>" controls class="rounded shadow" style="max-height: 180px;"></video>
                                             <?php else: ?>
-                                                <img src="/BESTUNE2/public/<?= htmlspecialchars($post['url_media']) ?>" class="rounded border" style="max-height: 180px;" alt="Media actual">
+                                                <img src="<?= BASE_URL . htmlspecialchars($post['url_media']) ?>" class="rounded border" style="max-height: 180px;" alt="Media actual">
                                             <?php endif; ?>
                                             <p class="text-muted mt-1">Media actual</p>
                                         </div>

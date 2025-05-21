@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!is_dir($upload_dir)) mkdir($upload_dir, 0755, true);
 
             if (!empty($imagen_actual)) {
-                $ruta_anterior = dirname(__DIR__, 2) . '/public/' . ltrim($imagen_actual, '/');
+                $ruta_anterior = realpath(__DIR__ . '/../../../../') . '/public/' . ltrim($imagen_actual, '/');
                 if (file_exists($ruta_anterior)) unlink($ruta_anterior);
             }
 
@@ -118,7 +118,7 @@ require_once '../includes/header.php';
                             <input type="file" name="imagen_principal" id="imagen_principal" accept="image/*"
                                    class="form-control-file">
                             <?php if (!empty($plan['imagen_principal'])): ?>
-                                <img src="/BESTUNE2/public/<?= htmlspecialchars($plan['imagen_principal']) ?>" 
+                                <img src="<?= BASE_URL . htmlspecialchars($plan['imagen_principal']) ?>" 
                                      alt="Imagen actual" class="mt-2 rounded border" style="max-height: 100px;">
                             <?php endif; ?>
                         </div>

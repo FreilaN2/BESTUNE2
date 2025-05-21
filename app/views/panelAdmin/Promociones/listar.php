@@ -98,7 +98,7 @@ $total_pages = ceil($total / $limit);
                             </td>
                             <td>
                                 <?php if (!empty($promo['imagen_url'])): ?>
-                                    <img src="/BESTUNE2/public/<?= htmlspecialchars($promo['imagen_url']) ?>"
+                                    <img src="<?= BASE_URL ?><?= htmlspecialchars($promo['imagen_url']) ?>"
                                          alt="Imagen" class="img-fluid rounded" style="max-height: 60px;">
                                 <?php else: ?>
                                     <span class="text-muted">Sin imagen</span>
@@ -106,7 +106,7 @@ $total_pages = ceil($total / $limit);
                             </td>
                             <td class="text-center">
                                 <a href="editar.php?id=<?= $promo['id_promocion'] ?>" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
-                                <a href="../Includes/actions/promociones/eliminar.php?id=<?= $promo['id_promocion'] ?>"
+                                <a href="../includes/actions/promociones/eliminar.php?id=<?= $promo['id_promocion'] ?>"
                                    onclick="return confirm('¿Estás seguro de eliminar esta promoción?')"
                                    class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                             </td>

@@ -1,19 +1,19 @@
 <?php
-require_once '../../../includes/config.php';
-require_once '../../../includes/auth.php';
+require_once __DIR__ . '/../../../includes/config.php';
+require_once __DIR__ . '/../../../includes/auth.php';
 checkAuth();
 
 if (!isAdmin()) {
     $_SESSION['message'] = "No tienes permisos para realizar esta acción";
     $_SESSION['message_type'] = "danger";
-    header("Location: /BESTUNE2/app/views/panelAdmin/index.php");
+    header("Location: " . PANEL_PATH . "app/views/panelAdmin/index.php");
     exit();
 }
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     $_SESSION['message'] = "ID de usuario no proporcionado o inválido";
     $_SESSION['message_type'] = "danger";
-    header("Location: /BESTUNE2/app/views/panelAdmin/usuarios/listar.php");
+    header("Location: " . PANEL_PATH . "app/views/panelAdmin/usuarios/listar.php");
     exit();
 }
 
@@ -23,7 +23,7 @@ $id_usuario = (int)$_GET['id'];
 if ($id_usuario === (int)$_SESSION['user_id']) {
     $_SESSION['message'] = "No puedes eliminar tu propia cuenta";
     $_SESSION['message_type'] = "warning";
-    header("Location: /BESTUNE2/app/views/panelAdmin/usuarios/listar.php");
+    header("Location: " . PANEL_PATH . "app/views/panelAdmin/usuarios/listar.php");
     exit();
 }
 
@@ -35,7 +35,7 @@ $usuario = $stmt->fetch();
 if (!$usuario) {
     $_SESSION['message'] = "El usuario no existe";
     $_SESSION['message_type'] = "danger";
-    header("Location: /BESTUNE2/app/views/panelAdmin/usuarios/listar.php");
+    header("Location: " . PANEL_PATH . "app/views/panelAdmin/usuarios/listar.php");
     exit();
 }
 
@@ -55,5 +55,5 @@ try {
     $_SESSION['message_type'] = "danger";
 }
 
-header("Location: /BESTUNE2/app/views/panelAdmin/usuarios/listar.php");
+header("Location: " . PANEL_PATH . "app/views/panelAdmin/usuarios/listar.php");
 exit();

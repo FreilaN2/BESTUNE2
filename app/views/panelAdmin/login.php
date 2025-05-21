@@ -37,11 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Login | <?= SITE_NAME ?></title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/BESTUNE2/public/assets/img/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="<?= BASE_URL ?>assets/img/favicon.ico">
 
     <!-- Atlantis Lite CSS -->
-    <link rel="stylesheet" href="/BESTUNE2/public/assets/Atlantis-Lite-master/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/BESTUNE2/public/assets/Atlantis-Lite-master/assets/css/atlantis.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/css/atlantis.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <style>
@@ -144,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
     <div class="card-login animate__animated animate__fadeInDown">
-        <img src="/BESTUNE2/public/assets/img/logo.png" alt="Logo" class="logo">
+        <img src="<?= BASE_URL ?>assets/img/logo.png" alt="Logo" class="logo">
 
         <?php if (isset($error)): ?>
             <div class="alert text-center" role="alert">
@@ -170,10 +170,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </footer>
 
     <!-- Atlantis Lite JS -->
-    <script src="/BESTUNE2/public/assets/Atlantis-Lite-master/assets/js/core/jquery.3.2.1.min.js"></script>
-    <script src="/BESTUNE2/public/assets/Atlantis-Lite-master/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-    <script src="/BESTUNE2/public/assets/Atlantis-Lite-master/assets/js/core/popper.min.js"></script>
-    <script src="/BESTUNE2/public/assets/Atlantis-Lite-master/assets/js/core/bootstrap.min.js"></script>
-    <script src="/BESTUNE2/public/assets/Atlantis-Lite-master/assets/js/atlantis.min.js"></script>
+    <script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/core/jquery.3.2.1.min.js"></script>
+    <script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/core/popper.min.js"></script>
+    <script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/core/bootstrap.min.js"></script>
+    <script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/atlantis.min.js"></script>
 </body>
 </html>

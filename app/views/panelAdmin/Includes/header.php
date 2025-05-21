@@ -4,12 +4,12 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title><?= isset($page_title) ? $page_title . ' | ' : '' ?><?= SITE_NAME ?></title>
-	<link rel="icon" type="image/x-icon" href="/BESTUNE2/public/assets/img/favicon.ico">
+	<link rel="icon" type="image/x-icon" href="<?= BASE_URL ?>assets/img/favicon.ico">
 
 	<!-- Atlantis Lite CSS -->
-	<link rel="stylesheet" href="/BESTUNE2/public/assets/Atlantis-Lite-master/assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/BESTUNE2/public/assets/Atlantis-Lite-master/assets/css/atlantis.min.css">
-	<link rel="stylesheet" href="/BESTUNE2/public/assets/Atlantis-Lite-master/assets/css/fonts.min.css">
+	<link rel="stylesheet" href="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/css/atlantis.min.css">
+	<link rel="stylesheet" href="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/css/fonts.min.css">
 </head>
 <body>
 <div class="wrapper">
@@ -18,7 +18,7 @@
 	<div class="main-header">
 		<!-- Logo Header -->
 		<div class="logo-header" data-background-color="blue">
-			<a href="/BESTUNE2/app/views/panelAdmin/index.php" class="logo">
+			<a href="/<?= explode('/', trim(dirname($_SERVER['SCRIPT_NAME']), '/'))[0] ?>/app/views/panelAdmin/index.php" class="logo">
 				<img src="<?= SITE_LOGO ?>" alt="<?= SITE_NAME ?>" class="navbar-brand" style="height: 40px;">
 			</a>
 			<button class="navbar-toggler sidenav-toggler ml-auto" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,27 +34,27 @@
 				<!-- ENLACES DE NAVEGACIÓN (centro izquierda) -->
 				<ul class="navbar-nav d-flex flex-row">
 					<li class="nav-item">
-						<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/usuarios/listar.php">
+						<a class="nav-link text-white" href="/<?= explode('/', trim(dirname($_SERVER['SCRIPT_NAME']), '/'))[0] ?>/app/views/panelAdmin/usuarios/listar.php">
 							<i class="fas fa-users"></i> Usuarios
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/promociones/listar.php">
+						<a class="nav-link text-white" href="/<?= explode('/', trim(dirname($_SERVER['SCRIPT_NAME']), '/'))[0] ?>/app/views/panelAdmin/promociones/listar.php">
 							<i class="fas fa-tags"></i> Promociones
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/planes/listar.php">
+						<a class="nav-link text-white" href="/<?= explode('/', trim(dirname($_SERVER['SCRIPT_NAME']), '/'))[0] ?>/app/views/panelAdmin/planes/listar.php">
 							<i class="fas fa-cube"></i> Planes
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/eventos/listar.php">
+						<a class="nav-link text-white" href="/<?= explode('/', trim(dirname($_SERVER['SCRIPT_NAME']), '/'))[0] ?>/app/views/panelAdmin/eventos/listar.php">
 							<i class="fas fa-calendar"></i> Eventos
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/instagram/listar.php">
+						<a class="nav-link text-white" href="/<?= explode('/', trim(dirname($_SERVER['SCRIPT_NAME']), '/'))[0] ?>/app/views/panelAdmin/instagram/listar.php">
 							<i class="fab fa-instagram"></i> Instagram
 						</a>
 					</li>
@@ -63,21 +63,16 @@
 				<!-- ÍCONOS DERECHA -->
 				<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
 					<li class="nav-item dropdown hidden-caret">
-						<a class="nav-link dropdown-toggle" href="#" id="notifDropdown" data-toggle="dropdown">
-							<i class="fa fa-bell"></i>
-							<span class="notification">0</span>
-						</a>
+
 						<ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
 							<li><div class="dropdown-title">No hay notificaciones</div></li>
 						</ul>
 					</li>
 					<li class="nav-item dropdown hidden-caret">
-						<a class="nav-link dropdown-toggle" href="#" id="quickActionsDropdown" data-toggle="dropdown">
-							<i class="fas fa-layer-group"></i>
-						</a>
+
 					</li>
 					<li class="nav-item hidden-caret">
-						<a class="nav-link text-white" href="/BESTUNE2/app/views/panelAdmin/logout.php" title="Cerrar sesión">
+						<a class="nav-link text-white" href="/<?= explode('/', trim(dirname($_SERVER['SCRIPT_NAME']), '/'))[0] ?>/app/views/panelAdmin/logout.php" title="Cerrar sesión">
 							<i class="fas fa-sign-out-alt"></i>
 						</a>
 					</li>

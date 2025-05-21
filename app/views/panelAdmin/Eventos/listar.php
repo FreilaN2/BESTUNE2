@@ -65,7 +65,7 @@ $eventos = $db->query($sql)->fetchAll();
                             </td>
                             <td>
                                 <?php if (!empty($evento['imagen'])): ?>
-                                    <img src="/BESTUNE2/public/<?= htmlspecialchars($evento['imagen']) ?>"
+                                    <img src="<?= BASE_URL . htmlspecialchars($evento['imagen']) ?>"
                                          alt="Imagen" class="img-fluid rounded" style="max-height: 60px;">
                                 <?php else: ?>
                                     <span class="text-muted">Sin imagen</span>

@@ -60,9 +60,9 @@ $posts = $db->query($sql)->fetchAll();
                             <td>
                                 <?php if (!empty($post['url_media'])): ?>
                                     <?php if (preg_match('/\.(mp4|webm)$/i', $post['url_media'])): ?>
-                                        <video src="/BESTUNE2/public/<?= htmlspecialchars($post['url_media']) ?>" class="img-fluid rounded" style="max-height: 60px;" muted autoplay loop></video>
+                                        <video src="<?= BASE_URL . htmlspecialchars($post['url_media']) ?>" class="img-fluid rounded" style="max-height: 60px;" muted autoplay loop></video>
                                     <?php else: ?>
-                                        <img src="/BESTUNE2/public/<?= htmlspecialchars($post['url_media']) ?>" alt="Media del post" class="img-fluid rounded" style="max-height: 60px;">
+                                        <img src="<?= BASE_URL . htmlspecialchars($post['url_media']) ?>" alt="Media del post" class="img-fluid rounded" style="max-height: 60px;">
                                     <?php endif; ?>
                                 <?php else: ?>
                                     <span class="text-muted">Sin media</span>

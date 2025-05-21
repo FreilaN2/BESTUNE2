@@ -57,7 +57,7 @@ $planes = $db->query($sql)->fetchAll();
                             <td><?= htmlspecialchars($plan['nombre_plan']) ?></td>
                             <td>
                                 <?php if (!empty($plan['imagen_principal'])): ?>
-                                    <img src="/BESTUNE2/public/<?= htmlspecialchars($plan['imagen_principal']) ?>" 
+                                    <img src="<?= BASE_URL . htmlspecialchars($plan['imagen_principal']) ?>" 
                                          alt="Imagen del plan" class="img-fluid rounded" style="max-height: 60px;">
                                 <?php else: ?>
                                     <span class="text-muted">Sin imagen</span>
@@ -67,7 +67,7 @@ $planes = $db->query($sql)->fetchAll();
                                 <a href="editar.php?id=<?= $plan['id_plan'] ?>" class="btn btn-sm btn-info" title="Editar">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <a href="../Includes/actions/planes/eliminar.php?id=<?= $plan['id_plan'] ?>" 
+                                <a href="../includes/actions/planes/eliminar.php?id=<?= $plan['id_plan'] ?>" 
                                    onclick="return confirm('¿Estás seguro de eliminar este plan?')" 
                                    class="btn btn-sm btn-danger" title="Eliminar">
                                     <i class="fa fa-trash"></i>

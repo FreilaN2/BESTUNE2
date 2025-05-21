@@ -6,12 +6,12 @@ checkAuth();
 if (!isAdmin()) {
     $_SESSION['message'] = "No tienes permisos para acceder a esta sección";
     $_SESSION['message_type'] = "danger";
-    header("Location: ../index.php");
+    header("Location: " . PANEL_PATH . "app/views/panelAdmin/index.php");
     exit();
 }
 
 if (!isset($_GET['id'])) {
-    header("Location: listar.php");
+    header("Location: " . PANEL_PATH . "app/views/panelAdmin/usuarios/listar.php");
     exit();
 }
 
@@ -26,7 +26,7 @@ $usuario = $stmt->fetch();
 if (!$usuario) {
     $_SESSION['message'] = "Usuario no encontrado";
     $_SESSION['message_type'] = "danger";
-    header("Location: listar.php");
+    header("Location: " . PANEL_PATH . "app/views/panelAdmin/usuarios/listar.php");
     exit();
 }
 
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $_SESSION['message'] = "Usuario actualizado exitosamente";
             $_SESSION['message_type'] = "success";
-            header("Location: listar.php");
+            header("Location: " . PANEL_PATH . "app/views/panelAdmin/usuarios/listar.php");
             exit();
         } catch (PDOException $e) {
             $errors[] = "Error al actualizar el usuario: " . $e->getMessage();
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="page-inner" style="background-color: #f8f9fa;">
     <div class="page-header">
         <h4 class="page-title">Editar Usuario</h4>
-        <a href="listar.php" class="btn btn-secondary btn-round ml-auto">
+        <a href="<?= PANEL_PATH ?>app/views/panelAdmin/usuarios/listar.php" class="btn btn-secondary btn-round ml-auto">
             <i class="fa fa-arrow-left"></i> Volver
         </a>
     </div>
@@ -144,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <button type="submit" class="btn btn-primary">
                                 <i class="fa fa-save"></i> Guardar Cambios
                             </button>
-                            <a href="listar.php" class="btn btn-secondary">
+                            <a href="<?= PANEL_PATH ?>app/views/panelAdmin/usuarios/listar.php" class="btn btn-secondary">
                                 <i class="fa fa-times"></i> Cancelar
                             </a>
                         </div>

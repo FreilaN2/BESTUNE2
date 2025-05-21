@@ -1,19 +1,19 @@
 <?php
-require_once '../../../includes/config.php';
-require_once '../../../includes/auth.php';
+require_once __DIR__ . '/../../../includes/config.php';
+require_once __DIR__ . '/../../../includes/auth.php';
 checkAuth();
 
 if (!isAdmin()) {
     $_SESSION['message'] = "No tienes permisos para realizar esta acción";
     $_SESSION['message_type'] = "danger";
-    header("Location: ../../../index.php");
+    header("Location: " . PANEL_PATH . "app/views/panelAdmin/index.php");
     exit();
 }
 
 if (!isset($_GET['id'])) {
     $_SESSION['message'] = "ID de plan no proporcionado";
     $_SESSION['message_type'] = "danger";
-    header("Location: ../../../planes/listar.php");
+    header("Location: " . PANEL_PATH . "app/views/panelAdmin/planes/listar.php");
     exit();
 }
 
@@ -30,7 +30,7 @@ try {
     // Eliminar imagen del servidor si existe
     if ($plan && !empty($plan['imagen_principal'])) {
         $ruta_relativa = ltrim($plan['imagen_principal'], '/'); // assets/img/planes/xxx.jpg
-        $base_path = dirname(__DIR__, 3); // ← corregido: subir 3 niveles hasta BESTUNE2
+        $base_path = realpath(__DIR__ . '/../../../../'); // llega hasta BESTUNE2
         $imagen_path = $base_path . '/public/' . $ruta_relativa;
 
         if (file_exists($imagen_path)) {
@@ -57,5 +57,5 @@ try {
     $_SESSION['message_type'] = "danger";
 }
 
-header("Location: ../../../planes/listar.php");
+header("Location: " . PANEL_PATH . "app/views/panelAdmin/planes/listar.php");
 exit();

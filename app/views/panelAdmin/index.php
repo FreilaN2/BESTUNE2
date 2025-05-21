@@ -44,7 +44,7 @@ $instagram = $db->query("SELECT * FROM instagram_posts WHERE visible = 1 ORDER B
                             </div>
                         </div>
                         <div class="card-footer text-center">
-                            <a href="usuarios/listar.php" class="btn btn-sm btn-primary">Ver todos</a>
+                            <a href="<?= PANEL_PATH ?>app/views/panelAdmin/usuarios/listar.php" class="btn btn-sm btn-primary">Ver todos</a>
                         </div>
                     </div>
                 </div>
@@ -65,7 +65,7 @@ $instagram = $db->query("SELECT * FROM instagram_posts WHERE visible = 1 ORDER B
                             </div>
                         </div>
                         <div class="card-footer text-center">
-                            <a href="promociones/listar.php" class="btn btn-sm btn-success">Ver todas</a>
+                            <a href="<?= PANEL_PATH ?>app/views/panelAdmin/promociones/listar.php" class="btn btn-sm btn-success">Ver todas</a>
                         </div>
                     </div>
                 </div>
@@ -86,7 +86,7 @@ $instagram = $db->query("SELECT * FROM instagram_posts WHERE visible = 1 ORDER B
                             </div>
                         </div>
                         <div class="card-footer text-center">
-                            <a href="planes/listar.php" class="btn btn-sm btn-info">Ver todos</a>
+                            <a href="<?= PANEL_PATH ?>app/views/panelAdmin/planes/listar.php" class="btn btn-sm btn-info">Ver todos</a>
                         </div>
                     </div>
                 </div>
@@ -107,7 +107,7 @@ $instagram = $db->query("SELECT * FROM instagram_posts WHERE visible = 1 ORDER B
                             </div>
                         </div>
                         <div class="card-footer text-center">
-                            <a href="eventos/listar.php" class="btn btn-sm btn-warning">Ver todos</a>
+                            <a href="<?= PANEL_PATH ?>app/views/panelAdmin/eventos/listar.php" class="btn btn-sm btn-warning">Ver todos</a>
                         </div>
                     </div>
                 </div>
@@ -180,9 +180,9 @@ $instagram = $db->query("SELECT * FROM instagram_posts WHERE visible = 1 ORDER B
                                         <div class="col-md-3">
                                             <div class="card card-profile">
                                                 <?php if (preg_match('/\.(mp4|webm)$/i', $post['url_media'])): ?>
-                                                    <video src="/BESTUNE2/public/<?= $post['url_media'] ?>" controls class="card-img-top rounded"></video>
+                                                    <video src="<?= BASE_URL . $post['url_media'] ?>" controls class="card-img-top rounded"></video>
                                                 <?php else: ?>
-                                                    <img src="/BESTUNE2/public/<?= $post['url_media'] ?>" class="card-img-top rounded" alt="Post de Instagram">
+                                                    <img src="<?= BASE_URL . $post['url_media'] ?>" class="card-img-top rounded" alt="Post de Instagram">
                                                 <?php endif; ?>
                                                 <div class="card-body text-center">
                                                     <p class="card-text"><?= htmlspecialchars($post['descripcion']) ?></p>

@@ -46,8 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errors)) {
         try {
-            $stmt = $db->prepare("INSERT INTO planes (nombre_plan, imagen_principal) VALUES (?, ?)");
             $imagen_url = 'assets/img/planes/' . $imagen_nombre;
+            $stmt = $db->prepare("INSERT INTO planes (nombre_plan, imagen_principal) VALUES (?, ?)");
             $stmt->execute([$nombre, $imagen_url]);
 
             $_SESSION['message'] = "Plan creado exitosamente";

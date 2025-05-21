@@ -1,19 +1,19 @@
 <?php
-require_once '../../../includes/config.php';
-require_once '../../../includes/auth.php';
+require_once __DIR__ . '/../../../includes/config.php';
+require_once __DIR__ . '/../../../includes/auth.php';
 checkAuth();
 
 if (!isAdmin()) {
     $_SESSION['message'] = "No tienes permisos para realizar esta acción";
     $_SESSION['message_type'] = "danger";
-    header("Location: ../../../index.php");
+    header("Location: " . PANEL_PATH . "app/views/panelAdmin/index.php");
     exit();
 }
 
 if (!isset($_GET['id'])) {
     $_SESSION['message'] = "ID de post no proporcionado";
     $_SESSION['message_type'] = "danger";
-    header("Location: ../../../instagram/listar.php");
+    header("Location: " . PANEL_PATH . "app/views/panelAdmin/instagram/listar.php");
     exit();
 }
 
@@ -51,5 +51,5 @@ try {
     $_SESSION['message_type'] = "danger";
 }
 
-header("Location: ../../../instagram/listar.php");
+header("Location: " . PANEL_PATH . "app/views/panelAdmin/instagram/listar.php");
 exit();

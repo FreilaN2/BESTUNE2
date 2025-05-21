@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <input type="file" id="imagen" name="imagen" accept="image/*" class="form-control-file">
                             <?php if (!empty($evento['imagen'])): ?>
                                 <div class="mt-2">
-                                    <img src="/bestune2/public/<?= htmlspecialchars($evento['imagen']) ?>"
+                                    <img src="<?= BASE_URL . htmlspecialchars($evento['imagen']) ?>"
                                          alt="Imagen actual" class="img-fluid rounded border" style="max-height: 100px;">
                                 </div>
                             <?php endif; ?>

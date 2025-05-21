@@ -1,12 +1,12 @@
 <?php
-require_once '../../../includes/config.php';
-require_once '../../../includes/auth.php';
+require_once __DIR__ . '/../../../includes/config.php';
+require_once __DIR__ . '/../../../includes/auth.php';
 checkAuth();
 
 if (!isset($_GET['id'])) {
     $_SESSION['message'] = "ID de evento no proporcionado";
     $_SESSION['message_type'] = "danger";
-    header("Location: ../../../eventos/listar.php");
+    header("Location: " . PANEL_PATH . "app/views/panelAdmin/eventos/listar.php");
     exit();
 }
 
@@ -49,5 +49,5 @@ try {
     $_SESSION['message_type'] = "danger";
 }
 
-header("Location: ../../../eventos/listar.php");
+header("Location: " . PANEL_PATH . "app/views/panelAdmin/eventos/listar.php");
 exit();

@@ -6,7 +6,7 @@ checkAuth();
 if (!isAdmin()) {
     $_SESSION['message'] = "No tienes permisos para acceder a esta sección";
     $_SESSION['message_type'] = "danger";
-    header("Location: ../index.php");
+    header("Location: " . PANEL_PATH . "app/views/panelAdmin/index.php");
     exit();
 }
 
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([$nombre, $email, $password_hash, $telefono, $es_administrador, $activo]);
             $_SESSION['message'] = "Usuario creado exitosamente";
             $_SESSION['message_type'] = "success";
-            header("Location: listar.php");
+            header("Location: " . PANEL_PATH . "app/views/panelAdmin/usuarios/listar.php");
             exit();
         } catch (PDOException $e) {
             $errors[] = "Error al crear el usuario: " . $e->getMessage();
@@ -51,10 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <div class="page-inner" style="background-color: #f8f9fa;">
-
     <div class="page-header">
         <h4 class="page-title">Crear Usuario</h4>
-        <a href="listar.php" class="btn btn-secondary btn-round ml-auto">
+        <a href="<?= PANEL_PATH ?>app/views/panelAdmin/usuarios/listar.php" class="btn btn-secondary btn-round ml-auto">
             <i class="fa fa-arrow-left"></i> Volver
         </a>
     </div>
@@ -71,8 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             <?php endif; ?>
 
-<div class="card shadow-lg border rounded">
-
+            <div class="card shadow-lg border rounded">
                 <div class="card-header">
                     <div class="card-title"><i class="fa fa-user-plus"></i> Nuevo Usuario</div>
                 </div>
@@ -102,32 +100,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                    value="<?= isset($_POST['telefono']) ? htmlspecialchars($_POST['telefono']) : '' ?>">
                         </div>
 
-                            <div class="form-check">
-                                <label>
-                                    <input type="checkbox" name="es_administrador"
-                                        <?= isset($_POST['es_administrador']) && $_POST['es_administrador'] ? 'checked' : '' ?>>
-                                    <span class="form-check-sign">Usuario Administrador</span>
-                                </label>
-                            </div>
+                        <div class="form-check">
+                            <label>
+                                <input type="checkbox" name="es_administrador"
+                                    <?= isset($_POST['es_administrador']) && $_POST['es_administrador'] ? 'checked' : '' ?>>
+                                <span class="form-check-sign">Usuario Administrador</span>
+                            </label>
+                        </div>
 
-                            <div class="form-check">
-                                <label>
-                                    <input type="checkbox" name="activo"
-                                        <?= !isset($_POST['activo']) || $_POST['activo'] ? 'checked' : '' ?>>
-                                    <span class="form-check-sign">Usuario Activo</span>
-                                </label>
-                            </div>
-                                            <div class="card-action text-right">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-save"></i> Guardar
-                    </button>
-                    <a href="listar.php" class="btn btn-secondary">
-                        <i class="fa fa-times"></i> Cancelar
-                    </a>
+                        <div class="form-check">
+                            <label>
+                                <input type="checkbox" name="activo"
+                                    <?= !isset($_POST['activo']) || $_POST['activo'] ? 'checked' : '' ?>>
+                                <span class="form-check-sign">Usuario Activo</span>
+                            </label>
+                        </div>
+
+                        <div class="card-action text-right">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-save"></i> Guardar
+                            </button>
+                            <a href="<?= PANEL_PATH ?>app/views/panelAdmin/usuarios/listar.php" class="btn btn-secondary">
+                                <i class="fa fa-times"></i> Cancelar
+                            </a>
+                        </div>
+                    </form>
                 </div>
-                        </form>
-                    </div>
-
             </div>
         </div>
     </div>
