@@ -110,9 +110,7 @@ $usuarios = $stmt->fetchAll();
 <script>
     $(document).ready(function() {
         $('#datatable-users').DataTable({
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
-            },
+        
             "pageLength": 10
         });
     });
