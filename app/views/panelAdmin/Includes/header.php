@@ -31,7 +31,7 @@
 		<nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
 			<div class="container-fluid">
 
-				<!-- ENLACES DE NAVEGACIÓN (centro izquierda) -->
+				<!-- ENLACES DE NAVEGACIÓN -->
 				<ul class="navbar-nav d-flex flex-row">
 					<li class="nav-item">
 						<a class="nav-link text-white" href="/<?= explode('/', trim(dirname($_SERVER['SCRIPT_NAME']), '/'))[0] ?>/app/views/panelAdmin/usuarios/listar.php">
@@ -63,20 +63,38 @@
 				<!-- ÍCONOS DERECHA -->
 				<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
 					<li class="nav-item dropdown hidden-caret">
-
 						<ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
 							<li><div class="dropdown-title">No hay notificaciones</div></li>
 						</ul>
 					</li>
-					<li class="nav-item dropdown hidden-caret">
-
-					</li>
 					<li class="nav-item hidden-caret">
-						<a class="nav-link text-white" href="/<?= explode('/', trim(dirname($_SERVER['SCRIPT_NAME']), '/'))[0] ?>/app/views/panelAdmin/logout.php" title="Cerrar sesión">
+						<!-- Botón con modal de confirmación -->
+						<button class="nav-link text-white btn btn-link p-0" data-toggle="modal" data-target="#logoutModal" title="Cerrar sesión">
 							<i class="fas fa-sign-out-alt"></i>
-						</a>
+						</button>
 					</li>
 				</ul>
 			</div>
 		</nav>
+	</div>
+
+	<!-- Modal de Confirmación de Cierre de Sesión -->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title text-center font-weight-bold w-100" id="logoutModalLabel">Cerrar Sesión</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body text-center font-weight-bold">
+					¿Estás seguro de cerrar sesión?
+				</div>
+				<div class="modal-footer justify-content-center">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					<a href="/<?= explode('/', trim(dirname($_SERVER['SCRIPT_NAME']), '/'))[0] ?>/app/views/panelAdmin/logout.php" class="btn btn-danger">Cerrar sesión</a>
+				</div>
+			</div>
+		</div>
 	</div>
