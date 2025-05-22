@@ -20,7 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['is_admin'] = $user['es_administrador'];
         $_SESSION['message'] = "Bienvenido, " . $user['nombre'];
         $_SESSION['message_type'] = "success";
-        header("Location: index.php");
+        header("Location: " . PANEL_PATH . "app/views/panelAdmin/index.php");
+
         exit();
     } else {
         $error = "Credenciales incorrectas";
