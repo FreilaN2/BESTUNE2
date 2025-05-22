@@ -10,7 +10,7 @@
             </ul>
         </nav>
         <div class="copyright ml-auto">
-            <?= date('Y') ?>, hecho con <i class="fa fa-certificate"></i> por <a href="http://www.corpoasia.net/" target="_blank">Corpoasia</a>
+            <?= date('Y') ?>, hecho por <a href="http://www.corpoasia.net/" target="_blank">Corpoasia</a>
         </div>				
     </div>
 </footer>

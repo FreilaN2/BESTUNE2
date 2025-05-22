@@ -17,7 +17,7 @@ $planes = $db->query($sql)->fetchAll();
             <i class="fa fa-plus"></i> Nuevo Plan
         </a>
     </div>
-
+ <br>
     <?php if (isset($_SESSION['message'])): ?>
     <script>
         $(document).ready(function () {

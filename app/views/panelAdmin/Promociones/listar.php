@@ -47,7 +47,7 @@ $total_pages = ceil($total / $limit);
             <i class="fa fa-plus"></i> Nueva Promoción
         </a>
     </div>
-
+ <br>
     <?php if (isset($_SESSION['message'])): ?>
         <script>
             $(document).ready(function () {

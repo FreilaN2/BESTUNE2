@@ -17,7 +17,7 @@
 	<!-- HEADER Atlantis -->
 	<div class="main-header">
 		<!-- Logo Header -->
-		<div class="logo-header" data-background-color="blue">
+		<div class="logo-header d-flex align-items-center justify-content-center" data-background-color="blue">
 			<a href="/<?= explode('/', trim(dirname($_SERVER['SCRIPT_NAME']), '/'))[0] ?>/app/views/panelAdmin/index.php" class="logo">
 				<img src="<?= SITE_LOGO ?>" alt="<?= SITE_NAME ?>" class="navbar-brand" style="height: 40px;">
 			</a>

@@ -18,6 +18,74 @@ $promociones = $db->query("SELECT p.*, u.nombre as creador FROM promociones p LE
 $instagram = $db->query("SELECT * FROM instagram_posts WHERE visible = 1 ORDER BY fecha_actualizacion DESC LIMIT 4")->fetchAll();
 ?>
 
+<style>
+    /* Márgenes laterales adaptativos y centrado del contenido */
+    .page-inner {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        max-width: 1440px !important;
+    }
+
+    .content, .main-panel {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    /* Eliminar márgenes/paddings innecesarios en general */
+    .content, .page-inner {
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+    }
+
+    html, body {
+        height: 100%;
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+        overflow-x: hidden;
+        
+    }
+    
+
+    .wrapper {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .main-panel {
+        width: 100% !important;
+        flex: 1;
+    }
+
+    .content, .page-inner {
+        width: 100% !important;
+        
+    }
+
+    .container, .container-fluid {
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    .main-header {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    /* Imágenes uniformes en Instagram */
+    .card-profile .card-img-top,
+    .card-profile video.card-img-top {
+        height: 250px;
+        object-fit: cover;
+        width: 100%;
+    }
+</style>
+
+
+
 <div class="main-panel">
     <div class="content">
         <div class="page-inner">
@@ -200,8 +268,10 @@ $instagram = $db->query("SELECT * FROM instagram_posts WHERE visible = 1 ORDER B
                 </div>
             </div>
 
-        </div>
+       </div>
     </div>
 </div>
 
+	</main>
+</div> <!-- Cierre de .wrapper -->
 <?php require_once 'includes/footer.php'; ?>

@@ -26,6 +26,7 @@ $usuarios = $stmt->fetchAll();
         </a>
     </div>
 
+    <br>
     <?php if (isset($_SESSION['message'])): ?>
     <script>
         $(document).ready(function () {
