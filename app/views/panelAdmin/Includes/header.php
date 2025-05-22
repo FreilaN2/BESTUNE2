@@ -94,7 +94,8 @@
           </div>
           <div class="modal-footer justify-content-center">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <a href="/<?= explode('/', trim(dirname($_SERVER['SCRIPT_NAME']), '/'))[0] ?>/app/views/panelAdmin/logout.php" class="btn btn-danger">Cerrar sesión</a>
+            <a href="<?= PANEL_PATH ?>app/views/panelAdmin/logout.php" class="btn btn-danger">Cerrar sesión</a>
+
           </div>
         </div>
       </div>
