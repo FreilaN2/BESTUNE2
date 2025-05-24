@@ -26,6 +26,7 @@ $instagram = $db->query("SELECT * FROM instagram_posts WHERE visible = 1 ORDER B
         margin-left: auto !important;
         margin-right: auto !important;
         max-width: 1440px !important;
+        margin-top: 2rem !important; /* nuevo margen superior */
     }
 
     .content, .main-panel {
@@ -36,7 +37,7 @@ $instagram = $db->query("SELECT * FROM instagram_posts WHERE visible = 1 ORDER B
     /* Eliminar márgenes/paddings innecesarios en general */
     .content, .page-inner {
         padding-top: 0 !important;
-        margin-top: 0 !important;
+        /* margin-top: 0 !important; */ /* ← eliminado para permitir el nuevo margin */
     }
 
     html, body {
@@ -44,9 +45,7 @@ $instagram = $db->query("SELECT * FROM instagram_posts WHERE visible = 1 ORDER B
         padding-left: 0 !important;
         margin-left: 0 !important;
         overflow-x: hidden;
-        
     }
-    
 
     .wrapper {
         min-height: 100vh;
@@ -61,7 +60,6 @@ $instagram = $db->query("SELECT * FROM instagram_posts WHERE visible = 1 ORDER B
 
     .content, .page-inner {
         width: 100% !important;
-        
     }
 
     .container, .container-fluid {
@@ -84,18 +82,17 @@ $instagram = $db->query("SELECT * FROM instagram_posts WHERE visible = 1 ORDER B
     }
 </style>
 
-
-
 <div class="main-panel">
     <div class="content">
-        <div class="page-inner">
-            <div class="d-flex align-items-center mb-4">
-                <i class="fas fa-tachometer-alt text-primary mr-2" style="font-size: 24px;"></i>
-                <h4 class="page-title mb-0">Dashboard / Resumen General</h4>
-            </div>
+        <div class="container-fluid"><!-- contenedor adicional para estructurar -->
+            <div class="page-inner">
+                <div class="d-flex align-items-center mb-4">
+                    <i class="fas fa-tachometer-alt text-primary mr-2" style="font-size: 24px;"></i>
+                    <h4 class="page-title mb-0">Dashboard / Resumen General</h4>
+                </div>
 
-            <!-- Estadísticas -->
-            <div class="row">
+                <!-- Estadísticas -->
+                <div class="row">
                 <div class="col-sm-6 col-md-3">
                     <div class="card card-stats card-round">
                         <div class="card-body">

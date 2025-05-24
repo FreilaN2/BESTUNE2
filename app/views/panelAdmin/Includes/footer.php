@@ -18,7 +18,6 @@
 </footer>
 
 <!-- Core JS de Atlantis -->
-<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/core/jquery.3.2.1.min.js"></script>
 <script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/core/popper.min.js"></script>
 <script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/core/bootstrap.min.js"></script>
 <script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>

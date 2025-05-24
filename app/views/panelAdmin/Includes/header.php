@@ -10,6 +10,14 @@
   <link rel="stylesheet" href="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/css/atlantis.min.css">
   <link rel="stylesheet" href="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/css/fonts.min.css">
+
+  <!-- jQuery y DataTables -->
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/core/jquery.3.2.1.min.js"></script>
+<link rel="stylesheet" href="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/css/datatables.min.css">
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/plugin/datatables/datatables.min.js"></script>
+<script src="<?= BASE_URL ?>assets/Atlantis-Lite-master/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+
 </head>
 <body>
   <div class="wrapper">
