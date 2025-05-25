@@ -10,6 +10,16 @@ $sql = "SELECT id_plan, nombre_plan, imagen_principal FROM planes ORDER BY nombr
 $planes = $db->query($sql)->fetchAll();
 ?>
 
+<!-- Estilos temporales para uniformar miniaturas -->
+<style>
+  #datatable-planes tbody td img {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    object-position: center;
+  }
+</style>
+
 <div class="page-inner">
     <div class="page-header">
         <h4 class="page-title">Gestión de Planes</h4>
@@ -17,7 +27,7 @@ $planes = $db->query($sql)->fetchAll();
             <i class="fa fa-plus"></i> Nuevo Plan
         </a>
     </div>
- <br>
+    <br>
     <?php if (isset($_SESSION['message'])): ?>
     <script>
         $(document).ready(function () {
@@ -58,7 +68,8 @@ $planes = $db->query($sql)->fetchAll();
                             <td>
                                 <?php if (!empty($plan['imagen_principal'])): ?>
                                     <img src="<?= BASE_URL . htmlspecialchars($plan['imagen_principal']) ?>" 
-                                         alt="Imagen del plan" class="img-fluid rounded" style="max-height: 60px;">
+                                         alt="Imagen del plan"
+                                         class="img-fluid rounded">
                                 <?php else: ?>
                                     <span class="text-muted">Sin imagen</span>
                                 <?php endif; ?>
@@ -84,6 +95,7 @@ $planes = $db->query($sql)->fetchAll();
         </div>
     </div>
 </div>
+
 </main>
 </div> <!-- Cierra wrapper -->
 
@@ -97,7 +109,6 @@ $planes = $db->query($sql)->fetchAll();
 <script>
     $(document).ready(function () {
         $('#datatable-planes').DataTable({
-
             "pageLength": 10
         });
     });

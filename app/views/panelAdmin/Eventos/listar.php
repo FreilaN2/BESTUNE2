@@ -13,6 +13,16 @@ $sql = "SELECT e.*, u.nombre as creador
 $eventos = $db->query($sql)->fetchAll();
 ?>
 
+<!-- Miniaturas uniformes en la tabla de eventos -->
+<style>
+  #datatable-eventos tbody td img {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    object-position: center;
+  }
+</style>
+
 <div class="page-inner">
     <div class="page-header">
         <h4 class="page-title">Gestión de Eventos</h4>
@@ -20,7 +30,7 @@ $eventos = $db->query($sql)->fetchAll();
             <i class="fa fa-plus"></i> Nuevo Evento
         </a>
     </div>
- <br>
+    <br>
     <?php if (isset($_SESSION['message'])): ?>
         <script>
             $(document).ready(function () {
@@ -56,7 +66,7 @@ $eventos = $db->query($sql)->fetchAll();
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($eventos as $evento): ?>
+                       <?php foreach ($eventos as $evento): ?>
                         <tr>
                             <td><?= $evento['id_evento'] ?></td>
                             <td><?= htmlspecialchars($evento['titulo']) ?></td>
@@ -66,22 +76,32 @@ $eventos = $db->query($sql)->fetchAll();
                             <td>
                                 <?php if (!empty($evento['imagen'])): ?>
                                     <img src="<?= BASE_URL . htmlspecialchars($evento['imagen']) ?>"
-                                         alt="Imagen" class="img-fluid rounded" style="max-height: 60px;">
+                                         alt="Imagen" class="img-fluid rounded">
                                 <?php else: ?>
                                     <span class="text-muted">Sin imagen</span>
                                 <?php endif; ?>
                             </td>
                             <td><?= htmlspecialchars($evento['creador'] ?? 'Sistema') ?></td>
                             <td class="text-center">
-                                <a href="editar.php?id=<?= $evento['id_evento'] ?>" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                                <a href="editar.php?id=<?= $evento['id_evento'] ?>"
+                                   class="btn btn-sm btn-info">
+                                    <i class="fa fa-edit"></i>
+                                </a>
                                 <a href="../includes/actions/eventos/eliminar.php?id=<?= $evento['id_evento'] ?>"
                                    onclick="return confirm('¿Estás seguro de eliminar este evento?')"
-                                   class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                   class="btn btn-sm btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </a>
                             </td>
                         </tr>
                         <?php endforeach; ?>
+
                         <?php if (empty($eventos)): ?>
-                            <tr><td colspan="6" class="text-center text-muted">No hay eventos disponibles.</td></tr>
+                            <tr>
+                                <td colspan="6" class="text-center text-muted">
+                                    No hay eventos disponibles.
+                                </td>
+                            </tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
@@ -103,7 +123,6 @@ $eventos = $db->query($sql)->fetchAll();
 <script>
     $(document).ready(function() {
         $('#datatable-eventos').DataTable({
-
             "pageLength": 10
         });
     });

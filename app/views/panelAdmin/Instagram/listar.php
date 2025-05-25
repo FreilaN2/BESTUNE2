@@ -10,6 +10,17 @@ $sql = "SELECT id_post, descripcion, url_post, url_media, fecha_post, visible FR
 $posts = $db->query($sql)->fetchAll();
 ?>
 
+<!-- Miniaturas uniformes en la tabla de Instagram -->
+<style>
+  #datatable-instagram tbody td img,
+  #datatable-instagram tbody td video {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    object-position: center;
+  }
+</style>
+
 <div class="page-inner">
     <div class="page-header">
         <h4 class="page-title">Gestión de Instagram</h4>
@@ -17,7 +28,7 @@ $posts = $db->query($sql)->fetchAll();
             <i class="fa fa-plus"></i> Nuevo Post
         </a>
     </div>
- <br>
+    <br>
     <?php if (isset($_SESSION['message'])): ?>
         <script>
             $(document).ready(function () {
@@ -60,9 +71,14 @@ $posts = $db->query($sql)->fetchAll();
                             <td>
                                 <?php if (!empty($post['url_media'])): ?>
                                     <?php if (preg_match('/\.(mp4|webm)$/i', $post['url_media'])): ?>
-                                        <video src="<?= BASE_URL . htmlspecialchars($post['url_media']) ?>" class="img-fluid rounded" style="max-height: 60px;" muted autoplay loop></video>
+                                        <video src="<?= BASE_URL . htmlspecialchars($post['url_media']) ?>"
+                                               class="img-fluid rounded"
+                                               muted autoplay loop>
+                                        </video>
                                     <?php else: ?>
-                                        <img src="<?= BASE_URL . htmlspecialchars($post['url_media']) ?>" alt="Media del post" class="img-fluid rounded" style="max-height: 60px;">
+                                        <img src="<?= BASE_URL . htmlspecialchars($post['url_media']) ?>"
+                                             alt="Media del post"
+                                             class="img-fluid rounded">
                                     <?php endif; ?>
                                 <?php else: ?>
                                     <span class="text-muted">Sin media</span>
@@ -76,18 +92,28 @@ $posts = $db->query($sql)->fetchAll();
                                 </span>
                             </td>
                             <td class="text-center">
-                                <a href="editar.php?id=<?= $post['id_post'] ?>" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
-                                <a href="../includes/actions/instagram/eliminar.php?id=<?= $post['id_post'] ?>" onclick="return confirm('¿Estás seguro de eliminar este post?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                <a href="editar.php?id=<?= $post['id_post'] ?>"
+                                   class="btn btn-sm btn-info">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a href="../includes/actions/instagram/eliminar.php?id=<?= $post['id_post'] ?>"
+                                   onclick="return confirm('¿Estás seguro de eliminar este post?')"
+                                   class="btn btn-sm btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </a>
                             </td>
                         </tr>
                         <?php endforeach; ?>
+
                         <?php if (empty($posts)): ?>
-                            <tr><td colspan="6" class="text-center text-muted">No hay publicaciones.</td></tr>
+                            <tr>
+                                <td colspan="6" class="text-center text-muted">No hay publicaciones.</td>
+                            </tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
             </div>
-        </div> 
+        </div>
     </div>
 </div>
 
@@ -104,7 +130,6 @@ $posts = $db->query($sql)->fetchAll();
 <script>
     $(document).ready(function() {
         $('#datatable-instagram').DataTable({
-
             "pageLength": 10
         });
     });

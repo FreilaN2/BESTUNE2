@@ -25,7 +25,9 @@ if ($filtro_activas === 'vigentes') $where[] = "p.fecha_inicio <= CURDATE() AND 
 elseif ($filtro_activas === 'futuras') $where[] = "p.fecha_inicio > CURDATE()";
 elseif ($filtro_activas === 'expiradas') $where[] = "p.fecha_fin < CURDATE()";
 
-if (!empty($where)) $sql .= " WHERE " . implode(" AND ", $where);
+if (!empty($where)) {
+    $sql .= " WHERE " . implode(" AND ", $where);
+}
 $sql .= " ORDER BY p.fecha_inicio DESC LIMIT ? OFFSET ?";
 
 $params = [$limit, $offset];
@@ -40,6 +42,16 @@ $total = $db->query("SELECT COUNT(*) FROM promociones")->fetchColumn();
 $total_pages = ceil($total / $limit);
 ?>
 
+<!-- Estilos temporales para uniformar miniaturas -->
+<style>
+  #datatable-promos tbody td img {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    object-position: center;
+  }
+</style>
+
 <div class="page-inner">
     <div class="page-header">
         <h4 class="page-title">Gestión de Promociones</h4>
@@ -47,7 +59,7 @@ $total_pages = ceil($total / $limit);
             <i class="fa fa-plus"></i> Nueva Promoción
         </a>
     </div>
- <br>
+    <br>
     <?php if (isset($_SESSION['message'])): ?>
         <script>
             $(document).ready(function () {
@@ -99,7 +111,8 @@ $total_pages = ceil($total / $limit);
                             <td>
                                 <?php if (!empty($promo['imagen_url'])): ?>
                                     <img src="<?= BASE_URL ?><?= htmlspecialchars($promo['imagen_url']) ?>"
-                                         alt="Imagen" class="img-fluid rounded" style="max-height: 60px;">
+                                         alt="Imagen"
+                                         class="img-fluid rounded">
                                 <?php else: ?>
                                     <span class="text-muted">Sin imagen</span>
                                 <?php endif; ?>
@@ -135,7 +148,6 @@ $total_pages = ceil($total / $limit);
 <script>
     $(document).ready(function() {
         $('#datatable-promos').DataTable({
-
             "pageLength": 10
         });
     });
